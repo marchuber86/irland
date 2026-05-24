@@ -137,6 +137,13 @@ p { margin-bottom: 8px; }
   background: #fafbfa;
 }
 .stop-card .stop-name { font-weight: 600; color: #1a4d2e; font-size: 14px; margin-bottom: 4px; }
+.stop-card .stop-name a.wiki-link {
+  color: #1a4d2e;
+  text-decoration: underline;
+  text-decoration-color: rgba(26,77,46,0.4);
+  text-underline-offset: 2px;
+}
+.stop-card .stop-name a.wiki-link:active { color: #1a73e8; }
 .stop-card .stop-meta {
   display: flex;
   flex-wrap: wrap;
@@ -198,6 +205,13 @@ p { margin-bottom: 8px; }
 }
 .restaurant:last-child { border-bottom: none; }
 .rest-head { font-weight: 600; color: #333; font-size: 14px; }
+.rest-head a.restaurant-link {
+  color: #333;
+  text-decoration: underline;
+  text-decoration-color: rgba(51,51,51,0.3);
+  text-underline-offset: 2px;
+}
+.rest-head a.restaurant-link:active { color: #1a73e8; }
 .rest-head .rating {
   color: #b8860b;
   font-size: 12px;
@@ -334,7 +348,8 @@ p { margin-bottom: 8px; }
       popupAnchor: [0, -8]
     });
     const m = L.marker([s.lat, s.lon], { icon: icon }).addTo(map);
-    m.bindPopup(`<b>${s.name}</b><br><span class="popup-day">Tag ${s.day}</span><br><a href="#day-${s.day}">→ Zum Tag ${s.day}</a>`);
+    const wikiUrl = `https://de.wikipedia.org/wiki/Special:Search?go=Go&search=${encodeURIComponent(s.name)}`;
+    m.bindPopup(`<b>${s.name}</b><br><span class="popup-day">Tag ${s.day}</span><br><a href="#day-${s.day}">→ Zum Tag ${s.day}</a><br><a href="${wikiUrl}" target="_blank" rel="noopener">📖 Wikipedia</a>`);
   }
 
   // Draw each day's route polyline through all its stops, in its own color
@@ -591,22 +606,22 @@ p { margin-bottom: 8px; }
     <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Dublin)</h3>
     <div class="restaurants">
       <div class="restaurant">
-        <div class="rest-head">John Kavanagh &#x27;The Gravediggers&#x27; <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=John%20Kavanagh%20%27The%20Gravediggers%27%20Dublin%20Ireland" target="_blank" rel="noopener" class="restaurant-link">John Kavanagh &#x27;The Gravediggers&#x27;</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Trad. Pub</div>
         <div class="rest-note">Legendärer historischer Pub neben Glasnevin-Friedhof. Bestes Coddle (irischer Eintopf) und perfektes Guinness.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">The Vintage Kitchen <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=The%20Vintage%20Kitchen%20Dublin%20Ireland" target="_blank" rel="noopener" class="restaurant-link">The Vintage Kitchen</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Restaurant</div>
         <div class="rest-note">Intimes Restaurant mit modernen irischen Gerichten. Reservierung empfohlen. Montag-Abend BYOB.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Fagan&#x27;s Bar &amp; Restaurant <span class="rating">4.4★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Fagan%27s%20Bar%20%26%20Restaurant%20Dublin%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Fagan&#x27;s Bar &amp; Restaurant</a> <span class="rating">4.4★</span></div>
         <div class="rest-kind">Gastropub</div>
         <div class="rest-note">Klassischer Dubliner Pub, kurze Strecke vom Croke Park Hotel. Steak Sandwich, Carvery.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Old Mill Restaurant <span class="rating">4.5★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Old%20Mill%20Restaurant%20Dublin%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Old Mill Restaurant</a> <span class="rating">4.5★</span></div>
         <div class="rest-kind">Irish Pub</div>
         <div class="rest-note">Traditionelle irische Küche in Temple Bar. Guinness Beef Stew. Stark frequentiert — reservieren.</div>
       </div>
@@ -625,7 +640,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name">Trinity College &amp; Book of Kells</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Trinity%20College%20%26%20Book%20of%20Kells" target="_blank" rel="noopener" class="wiki-link">Trinity College &amp; Book of Kells</a></div>
         <div class="stop-meta">
           <span class="pill">⏱ 1h 30m</span>
           <span class="pill fee">€18–25</span>
@@ -633,7 +648,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Älteste Universität Irlands (1592). Long Room der Bibliothek mit 200.000 Büchern war Vorlage für Hogwarts. Book of Kells = mittelalterliche illuminierte Evangelienhandschrift (~800 n.Chr.). Tickets unter tcd.ie.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">St. Stephen&#x27;s Green / Merrion Square</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=St.%20Stephen%27s%20Green%20/%20Merrion%20Square" target="_blank" rel="noopener" class="wiki-link">St. Stephen&#x27;s Green / Merrion Square</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 15 Min</span>
           <span class="pill">⏱ 1 h</span>
@@ -642,7 +657,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Georgianischer Stadtpark mit Teich und Skulpturen. Merrion Square hat farbige Türen, Oscar-Wilde-Statue, georgianische Häuser.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Optional: Dublin Castle / National Museum / Guinness Storehouse</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Dublin%20Castle%20/%20National%20Museum%20/%20Guinness%20Storehouse" target="_blank" rel="noopener" class="wiki-link">Optional: Dublin Castle / National Museum / Guinness Storehouse</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 15 Min</span>
           <span class="pill">⏱ 2 h</span>
@@ -658,22 +673,22 @@ p { margin-bottom: 8px; }
     <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Dublin)</h3>
     <div class="restaurants">
       <div class="restaurant">
-        <div class="rest-head">John Kavanagh &#x27;The Gravediggers&#x27; <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=John%20Kavanagh%20%27The%20Gravediggers%27%20Dublin%20Ireland" target="_blank" rel="noopener" class="restaurant-link">John Kavanagh &#x27;The Gravediggers&#x27;</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Trad. Pub</div>
         <div class="rest-note">Legendärer historischer Pub neben Glasnevin-Friedhof. Bestes Coddle (irischer Eintopf) und perfektes Guinness.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">The Vintage Kitchen <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=The%20Vintage%20Kitchen%20Dublin%20Ireland" target="_blank" rel="noopener" class="restaurant-link">The Vintage Kitchen</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Restaurant</div>
         <div class="rest-note">Intimes Restaurant mit modernen irischen Gerichten. Reservierung empfohlen. Montag-Abend BYOB.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Fagan&#x27;s Bar &amp; Restaurant <span class="rating">4.4★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Fagan%27s%20Bar%20%26%20Restaurant%20Dublin%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Fagan&#x27;s Bar &amp; Restaurant</a> <span class="rating">4.4★</span></div>
         <div class="rest-kind">Gastropub</div>
         <div class="rest-note">Klassischer Dubliner Pub, kurze Strecke vom Croke Park Hotel. Steak Sandwich, Carvery.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Old Mill Restaurant <span class="rating">4.5★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Old%20Mill%20Restaurant%20Dublin%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Old Mill Restaurant</a> <span class="rating">4.5★</span></div>
         <div class="rest-kind">Irish Pub</div>
         <div class="rest-note">Traditionelle irische Küche in Temple Bar. Guinness Beef Stew. Stark frequentiert — reservieren.</div>
       </div>
@@ -691,7 +706,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name">Clonmacnoise Monastic Site</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Clonmacnoise%20Monastic%20Site" target="_blank" rel="noopener" class="wiki-link">Clonmacnoise Monastic Site</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1h 45m</span>
           <span class="pill">⏱ 1h 30m</span>
@@ -700,7 +715,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Klostersiedlung gegründet 544 n.Chr. von St. Ciarán am Shannon. Round Tower, mehrere Kirchen-Ruinen, Original-Hochkreuze im Museum. Video-Intro empfohlen.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Trim Castle</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Trim%20Castle" target="_blank" rel="noopener" class="wiki-link">Trim Castle</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1h 15m</span>
           <span class="pill">⏱ 1h 30m</span>
@@ -733,22 +748,22 @@ p { margin-bottom: 8px; }
     <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Dublin)</h3>
     <div class="restaurants">
       <div class="restaurant">
-        <div class="rest-head">John Kavanagh &#x27;The Gravediggers&#x27; <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=John%20Kavanagh%20%27The%20Gravediggers%27%20Dublin%20Ireland" target="_blank" rel="noopener" class="restaurant-link">John Kavanagh &#x27;The Gravediggers&#x27;</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Trad. Pub</div>
         <div class="rest-note">Legendärer historischer Pub neben Glasnevin-Friedhof. Bestes Coddle (irischer Eintopf) und perfektes Guinness.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">The Vintage Kitchen <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=The%20Vintage%20Kitchen%20Dublin%20Ireland" target="_blank" rel="noopener" class="restaurant-link">The Vintage Kitchen</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Restaurant</div>
         <div class="rest-note">Intimes Restaurant mit modernen irischen Gerichten. Reservierung empfohlen. Montag-Abend BYOB.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Fagan&#x27;s Bar &amp; Restaurant <span class="rating">4.4★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Fagan%27s%20Bar%20%26%20Restaurant%20Dublin%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Fagan&#x27;s Bar &amp; Restaurant</a> <span class="rating">4.4★</span></div>
         <div class="rest-kind">Gastropub</div>
         <div class="rest-note">Klassischer Dubliner Pub, kurze Strecke vom Croke Park Hotel. Steak Sandwich, Carvery.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Old Mill Restaurant <span class="rating">4.5★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Old%20Mill%20Restaurant%20Dublin%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Old Mill Restaurant</a> <span class="rating">4.5★</span></div>
         <div class="rest-kind">Irish Pub</div>
         <div class="rest-note">Traditionelle irische Küche in Temple Bar. Guinness Beef Stew. Stark frequentiert — reservieren.</div>
       </div>
@@ -767,7 +782,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name">Monasterboice</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Monasterboice" target="_blank" rel="noopener" class="wiki-link">Monasterboice</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1 h</span>
           <span class="pill">⏱ 30 Min</span>
@@ -783,7 +798,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Hotel an der Great Victoria Street, sehr zentral. Check-in 15:00. Restaurants und Pubs in Gehweite.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Optional Titanic Quarter</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Titanic%20Quarter" target="_blank" rel="noopener" class="wiki-link">Optional Titanic Quarter</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 10 Min</span>
           <span class="pill">⏱ 2 h</span>
@@ -809,22 +824,22 @@ p { margin-bottom: 8px; }
     <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Belfast)</h3>
     <div class="restaurants">
       <div class="restaurant">
-        <div class="rest-head">Kelly&#x27;s Cellars <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Kelly%27s%20Cellars%20Belfast%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Kelly&#x27;s Cellars</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Trad. Pub</div>
         <div class="rest-note">Belfasts ältester Pub (seit 1720). Live-Fiddler, offenes Feuer. Vegan Cottage Pie.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Duke of York <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Duke%20of%20York%20Belfast%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Duke of York</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Pub</div>
         <div class="rest-note">Versteckt in Commercial Court mit ikonischer Vintage-Deko und Streetart.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">The Lantern Restaurant <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=The%20Lantern%20Restaurant%20Belfast%20Ireland" target="_blank" rel="noopener" class="restaurant-link">The Lantern Restaurant</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Bistro</div>
         <div class="rest-note">Geheimtipp nahe Leonardo Hotel. Fish &amp; Chips, Sticky Toffee.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Fibber Magee <span class="rating">4.4★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Fibber%20Magee%20Belfast%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Fibber Magee</a> <span class="rating">4.4★</span></div>
         <div class="rest-kind">Irish Pub</div>
         <div class="rest-note">Live-Musik-Pub gegenüber Crown. Bangers &amp; Mash. Wenige Minuten vom Hotel.</div>
       </div>
@@ -844,7 +859,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name">Carrick-a-Rede Rope Bridge</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Carrick-a-Rede%20Rope%20Bridge" target="_blank" rel="noopener" class="wiki-link">Carrick-a-Rede Rope Bridge</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1h 45m</span>
           <span class="pill">⏱ 1h 15m</span>
@@ -853,7 +868,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Hängebrücke aus Tauen zwischen Festland und kleiner Felseninsel (Lachsfischer-Geschichte). 30m über dem Meer. Bei starkem Wind geschlossen. Timed Entry buchen. Mit Kleinkind heikel.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Giant&#x27;s Causeway</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Giant%27s%20Causeway" target="_blank" rel="noopener" class="wiki-link">Giant&#x27;s Causeway</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 30 Min</span>
           <span class="pill">⏱ 2 h</span>
@@ -862,7 +877,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">40.000 sechseckige Basaltsäulen, durch Lava-Abkühlung entstanden (60 Mio. Jahre). Legende: Riese Finn McCool baute Damm nach Schottland. Walk frei. Shuttle £1.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Dunluce Castle</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Dunluce%20Castle" target="_blank" rel="noopener" class="wiki-link">Dunluce Castle</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 15 Min</span>
           <span class="pill">⏱ 45 Min</span>
@@ -890,22 +905,22 @@ p { margin-bottom: 8px; }
     <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Letterkenny)</h3>
     <div class="restaurants">
       <div class="restaurant">
-        <div class="rest-head">Brewery Bar &amp; Restaurant <span class="rating">4.6★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Brewery%20Bar%20%26%20Restaurant%20Letterkenny%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Brewery Bar &amp; Restaurant</a> <span class="rating">4.6★</span></div>
         <div class="rest-kind">Restaurant/Bar</div>
         <div class="rest-note">Lokales Top-Ziel am Market Square. Frischer Haddock, regional bezogen.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">The Cottage Bar <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=The%20Cottage%20Bar%20Letterkenny%20Ireland" target="_blank" rel="noopener" class="restaurant-link">The Cottage Bar</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Trad. Pub</div>
         <div class="rest-note">Traditionell, offenes Feuer, Beer Garden. Bester Guinness der Stadt.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">McGinleys Bar <span class="rating">4.6★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=McGinleys%20Bar%20Letterkenny%20Ireland" target="_blank" rel="noopener" class="restaurant-link">McGinleys Bar</a> <span class="rating">4.6★</span></div>
         <div class="rest-kind">Trad. Pub</div>
         <div class="rest-note">Familiengeführt mit Live-Musik fast jeden Abend. Mehrere Etagen.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">The Orchard Gastropub <span class="rating">4.5★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=The%20Orchard%20Gastropub%20Letterkenny%20Ireland" target="_blank" rel="noopener" class="restaurant-link">The Orchard Gastropub</a> <span class="rating">4.5★</span></div>
         <div class="rest-kind">Gastropub</div>
         <div class="rest-note">Gut bewertet, generöse Portionen, kinderfreundlich. 5 Min vom Hotel.</div>
       </div>
@@ -924,7 +939,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name">Glenveagh Visitor Centre</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Glenveagh%20Visitor%20Centre" target="_blank" rel="noopener" class="wiki-link">Glenveagh Visitor Centre</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 30 Min</span>
           <span class="pill">⏱ 30 Min</span>
@@ -933,7 +948,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Eingang zum 170 km² großen Nationalpark — Berge, Seen, Heideland, irische Rothirsche. Café, Toiletten, Shop. Shuttle-Tickets hier.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Glenveagh Castle &amp; Gardens</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Glenveagh%20Castle%20%26%20Gardens" target="_blank" rel="noopener" class="wiki-link">Glenveagh Castle &amp; Gardens</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 5 Min</span>
           <span class="pill">⏱ 2h 30m</span>
@@ -942,7 +957,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Viktorianisches Schloss (1870) am Ufer des Lough Veagh. Bekannt durch dramatische Geschichte des amerikanischen Besitzers. Wunderschöne Gärten mit subtropischen Pflanzen.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Optional: Lake Walk Loop</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Lake%20Walk%20Loop" target="_blank" rel="noopener" class="wiki-link">Optional: Lake Walk Loop</a></div>
         <div class="stop-meta">
           <span class="pill">⏱ 1h 30m</span>
           <span class="pill fee">frei</span>
@@ -974,22 +989,22 @@ p { margin-bottom: 8px; }
     <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Letterkenny)</h3>
     <div class="restaurants">
       <div class="restaurant">
-        <div class="rest-head">Brewery Bar &amp; Restaurant <span class="rating">4.6★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Brewery%20Bar%20%26%20Restaurant%20Letterkenny%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Brewery Bar &amp; Restaurant</a> <span class="rating">4.6★</span></div>
         <div class="rest-kind">Restaurant/Bar</div>
         <div class="rest-note">Lokales Top-Ziel am Market Square. Frischer Haddock, regional bezogen.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">The Cottage Bar <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=The%20Cottage%20Bar%20Letterkenny%20Ireland" target="_blank" rel="noopener" class="restaurant-link">The Cottage Bar</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Trad. Pub</div>
         <div class="rest-note">Traditionell, offenes Feuer, Beer Garden. Bester Guinness der Stadt.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">McGinleys Bar <span class="rating">4.6★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=McGinleys%20Bar%20Letterkenny%20Ireland" target="_blank" rel="noopener" class="restaurant-link">McGinleys Bar</a> <span class="rating">4.6★</span></div>
         <div class="rest-kind">Trad. Pub</div>
         <div class="rest-note">Familiengeführt mit Live-Musik fast jeden Abend. Mehrere Etagen.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">The Orchard Gastropub <span class="rating">4.5★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=The%20Orchard%20Gastropub%20Letterkenny%20Ireland" target="_blank" rel="noopener" class="restaurant-link">The Orchard Gastropub</a> <span class="rating">4.5★</span></div>
         <div class="rest-kind">Gastropub</div>
         <div class="rest-note">Gut bewertet, generöse Portionen, kinderfreundlich. 5 Min vom Hotel.</div>
       </div>
@@ -1008,7 +1023,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name">Grianán Of Aileach</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Grian%C3%A1n%20Of%20Aileach" target="_blank" rel="noopener" class="wiki-link">Grianán Of Aileach</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 25 Min</span>
           <span class="pill">⏱ 30 Min</span>
@@ -1017,7 +1032,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Steinerne Ringfestung auf 250m Höhe aus dem 5.–7. Jh. Berühmt für 360°-Panorama über fünf Counties. Kurzer Fußweg vom Parkplatz.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Slieve League Cliffs</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Slieve%20League%20Cliffs" target="_blank" rel="noopener" class="wiki-link">Slieve League Cliffs</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 2h 10m</span>
           <span class="pill">⏱ 2 h</span>
@@ -1050,17 +1065,17 @@ p { margin-bottom: 8px; }
     <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Enniscrone)</h3>
     <div class="restaurants">
       <div class="restaurant">
-        <div class="rest-head">Gilroy&#x27;s Bar <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Gilroy%27s%20Bar%20Enniscrone%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Gilroy&#x27;s Bar</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Pub/Restaurant</div>
         <div class="rest-note">Bestes Restaurant im Ort. Beetroot Gnocchi, Krabben-Carpaccio.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Pilot Bar <span class="rating">4.5★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Pilot%20Bar%20Enniscrone%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Pilot Bar</a> <span class="rating">4.5★</span></div>
         <div class="rest-kind">Gastropub</div>
         <div class="rest-note">Klein, immer voll. Stunning Seafood Chowder. Vorab reservieren.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Enniscrone Golf Club <span class="rating">4.5★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Enniscrone%20Golf%20Club%20Enniscrone%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Enniscrone Golf Club</a> <span class="rating">4.5★</span></div>
         <div class="rest-kind">Bar/Restaurant</div>
         <div class="rest-note">Sehr gute Seafood Chowder, Fish &amp; Chips. Schöne Lage.</div>
       </div>
@@ -1079,7 +1094,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name">Creevykeel Court Tomb</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Creevykeel%20Court%20Tomb" target="_blank" rel="noopener" class="wiki-link">Creevykeel Court Tomb</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1 h</span>
           <span class="pill">⏱ 20 Min</span>
@@ -1088,7 +1103,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Eines der besterhaltenen &#x27;Court Tombs&#x27; Irlands (~3500 v.Chr.). Halbkreis-förmiger Vorhof, 55m langer Cairn. Direkt an der N15, 25m Fußweg.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Achill Island</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Achill%20Island" target="_blank" rel="noopener" class="wiki-link">Achill Island</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1h 30m</span>
           <span class="pill">⏱ 30 Min</span>
@@ -1097,7 +1112,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Größte Insel Irlands, über Brücke erreichbar. Atlantic Drive an der Südküste (schmale Küstenstraße).</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Keem Beach</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Keem%20Beach" target="_blank" rel="noopener" class="wiki-link">Keem Beach</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 30 Min</span>
           <span class="pill">⏱ 1h 30m</span>
@@ -1130,22 +1145,22 @@ p { margin-bottom: 8px; }
     <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Westport)</h3>
     <div class="restaurants">
       <div class="restaurant">
-        <div class="rest-head">Matt Molloy&#x27;s <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Matt%20Molloy%27s%20Westport%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Matt Molloy&#x27;s</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Pub (Live-Musik)</div>
         <div class="rest-note">Vom Chieftains-Flötisten. Session ab ~21:00. Nur Drinks/Musik.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">M.J. Hoban <span class="rating">4.6★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=M.J.%20Hoban%20Westport%20Ireland" target="_blank" rel="noopener" class="restaurant-link">M.J. Hoban</a> <span class="rating">4.6★</span></div>
         <div class="rest-kind">Gastropub</div>
         <div class="rest-note">Obere Etage mit Octagon-Blick. Korean Burger, Goat Cheese Croquettes.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">J.J. O&#x27;Malley&#x27;s <span class="rating">4.5★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=J.J.%20O%27Malley%27s%20Westport%20Ireland" target="_blank" rel="noopener" class="restaurant-link">J.J. O&#x27;Malley&#x27;s</a> <span class="rating">4.5★</span></div>
         <div class="rest-kind">Restaurant/Pub</div>
         <div class="rest-note">Pub unten, Restaurant oben. Crab Pasta, Curry. Live-Musik.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Porterhouse <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Porterhouse%20Westport%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Porterhouse</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Irish Pub</div>
         <div class="rest-note">Live-Musik-Pub. Kein eigenes Essen — kombiniere mit M.J. Hoban.</div>
       </div>
@@ -1164,7 +1179,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name">Kylemore Abbey</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Kylemore%20Abbey" target="_blank" rel="noopener" class="wiki-link">Kylemore Abbey</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1h 5m</span>
           <span class="pill">⏱ 2 h</span>
@@ -1173,7 +1188,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Viktorianisches Schloss am Pollacappul Lake (1867). Heute Benediktinerinnen-Kloster. Walled Garden 2 km entfernt (Shuttle). Café für Lunch. Romantische Tragödie der Erbauer (Mitchell Henry baute es seiner sterbenden Frau).</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Connemara National Park</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Connemara%20National%20Park" target="_blank" rel="noopener" class="wiki-link">Connemara National Park</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 5 Min</span>
           <span class="pill">⏱ 1h 30m</span>
@@ -1206,22 +1221,22 @@ p { margin-bottom: 8px; }
     <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Galway)</h3>
     <div class="restaurants">
       <div class="restaurant">
-        <div class="rest-head">O&#x27;Connell&#x27;s Bar <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=O%27Connell%27s%20Bar%20Galway%20Ireland" target="_blank" rel="noopener" class="restaurant-link">O&#x27;Connell&#x27;s Bar</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Trad. Pub</div>
         <div class="rest-note">Versteckter Innenhof-Biergarten (&#x27;Diagon Alley&#x27;-Vibe). Dough Bros Pizza im Hof.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Brasserie on the Corner <span class="rating">4.6★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Brasserie%20on%20the%20Corner%20Galway%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Brasserie on the Corner</a> <span class="rating">4.6★</span></div>
         <div class="rest-kind">Restaurant</div>
         <div class="rest-note">Gehobenes Seafood/Steak. John Dory, Wagyu. Reservierung nötig.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">The Dáil Bar <span class="rating">4.5★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=The%20D%C3%A1il%20Bar%20Galway%20Ireland" target="_blank" rel="noopener" class="restaurant-link">The Dáil Bar</a> <span class="rating">4.5★</span></div>
         <div class="rest-kind">Gastropub</div>
         <div class="rest-note">Warmer cozy Pub mit Kohlefeuer. Beef Stew, Cottage Pie.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">An Púcán <span class="rating">4.4★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=An%20P%C3%BAc%C3%A1n%20Galway%20Ireland" target="_blank" rel="noopener" class="restaurant-link">An Púcán</a> <span class="rating">4.4★</span></div>
         <div class="rest-kind">Gastropub</div>
         <div class="rest-note">Beliebter Pub mit Trad-Music. Match-Tage sehr laut.</div>
       </div>
@@ -1255,7 +1270,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">45-Min-Überfahrt mit Aran Islands Ferries. Saisonale Frühfahrt ~10:30, Rückfahrt ~17:00. Innen oder Außendeck (windig).</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Inis Mór — Kilronan &amp; Insel</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Inis%20M%C3%B3r%20%E2%80%94%20Kilronan%20%26%20Insel" target="_blank" rel="noopener" class="wiki-link">Inis Mór — Kilronan &amp; Insel</a></div>
         <div class="stop-meta">
           <span class="pill">⏱ 6 h</span>
           <span class="pill fee">€15 Rad</span>
@@ -1283,22 +1298,22 @@ p { margin-bottom: 8px; }
     <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Galway)</h3>
     <div class="restaurants">
       <div class="restaurant">
-        <div class="rest-head">O&#x27;Connell&#x27;s Bar <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=O%27Connell%27s%20Bar%20Galway%20Ireland" target="_blank" rel="noopener" class="restaurant-link">O&#x27;Connell&#x27;s Bar</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Trad. Pub</div>
         <div class="rest-note">Versteckter Innenhof-Biergarten (&#x27;Diagon Alley&#x27;-Vibe). Dough Bros Pizza im Hof.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Brasserie on the Corner <span class="rating">4.6★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Brasserie%20on%20the%20Corner%20Galway%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Brasserie on the Corner</a> <span class="rating">4.6★</span></div>
         <div class="rest-kind">Restaurant</div>
         <div class="rest-note">Gehobenes Seafood/Steak. John Dory, Wagyu. Reservierung nötig.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">The Dáil Bar <span class="rating">4.5★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=The%20D%C3%A1il%20Bar%20Galway%20Ireland" target="_blank" rel="noopener" class="restaurant-link">The Dáil Bar</a> <span class="rating">4.5★</span></div>
         <div class="rest-kind">Gastropub</div>
         <div class="rest-note">Warmer cozy Pub mit Kohlefeuer. Beef Stew, Cottage Pie.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">An Púcán <span class="rating">4.4★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=An%20P%C3%BAc%C3%A1n%20Galway%20Ireland" target="_blank" rel="noopener" class="restaurant-link">An Púcán</a> <span class="rating">4.4★</span></div>
         <div class="rest-kind">Gastropub</div>
         <div class="rest-note">Beliebter Pub mit Trad-Music. Match-Tage sehr laut.</div>
       </div>
@@ -1317,7 +1332,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name">Galway Latin Quarter</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Galway%20Latin%20Quarter" target="_blank" rel="noopener" class="wiki-link">Galway Latin Quarter</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 30 Min</span>
           <span class="pill">⏱ 3 h</span>
@@ -1326,7 +1341,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Mittelalterliche Altstadt mit Kopfsteinpflaster und bunten Häusern. Quay Street und Shop Street mit Pubs, Buskerszene, Boutiquen. Lynch&#x27;s Castle (15. Jh.) im Banken-Gebäude.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Spanish Arch &amp; Galway Museum</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Spanish%20Arch%20%26%20Galway%20Museum" target="_blank" rel="noopener" class="wiki-link">Spanish Arch &amp; Galway Museum</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 5 Min</span>
           <span class="pill">⏱ 1 h</span>
@@ -1335,7 +1350,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Stadtmauer-Bogen von 1584 am Corrib-Fluss. Galway City Museum daneben (gratis): irische Maritimegeschichte, Claddagh-Tradition.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Salthill Promenade</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Salthill%20Promenade" target="_blank" rel="noopener" class="wiki-link">Salthill Promenade</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 10 Min</span>
           <span class="pill">⏱ 2 h</span>
@@ -1356,22 +1371,22 @@ p { margin-bottom: 8px; }
     <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Galway)</h3>
     <div class="restaurants">
       <div class="restaurant">
-        <div class="rest-head">O&#x27;Connell&#x27;s Bar <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=O%27Connell%27s%20Bar%20Galway%20Ireland" target="_blank" rel="noopener" class="restaurant-link">O&#x27;Connell&#x27;s Bar</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Trad. Pub</div>
         <div class="rest-note">Versteckter Innenhof-Biergarten (&#x27;Diagon Alley&#x27;-Vibe). Dough Bros Pizza im Hof.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Brasserie on the Corner <span class="rating">4.6★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Brasserie%20on%20the%20Corner%20Galway%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Brasserie on the Corner</a> <span class="rating">4.6★</span></div>
         <div class="rest-kind">Restaurant</div>
         <div class="rest-note">Gehobenes Seafood/Steak. John Dory, Wagyu. Reservierung nötig.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">The Dáil Bar <span class="rating">4.5★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=The%20D%C3%A1il%20Bar%20Galway%20Ireland" target="_blank" rel="noopener" class="restaurant-link">The Dáil Bar</a> <span class="rating">4.5★</span></div>
         <div class="rest-kind">Gastropub</div>
         <div class="rest-note">Warmer cozy Pub mit Kohlefeuer. Beef Stew, Cottage Pie.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">An Púcán <span class="rating">4.4★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=An%20P%C3%BAc%C3%A1n%20Galway%20Ireland" target="_blank" rel="noopener" class="restaurant-link">An Púcán</a> <span class="rating">4.4★</span></div>
         <div class="rest-kind">Gastropub</div>
         <div class="rest-note">Beliebter Pub mit Trad-Music. Match-Tage sehr laut.</div>
       </div>
@@ -1389,7 +1404,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name">Dunguaire Castle</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Dunguaire%20Castle" target="_blank" rel="noopener" class="wiki-link">Dunguaire Castle</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 35 Min</span>
           <span class="pill">⏱ 20 Min</span>
@@ -1398,7 +1413,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Tower-House aus 1520 am Galway Bay. Sehr fotogen wegen der Lage direkt am Wasser. Innen oft geschlossen — Foto-Stopp reicht.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Poulnabrone Dolmen (Burren)</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Poulnabrone%20Dolmen%20%28Burren%29" target="_blank" rel="noopener" class="wiki-link">Poulnabrone Dolmen (Burren)</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 40 Min</span>
           <span class="pill">⏱ 30 Min</span>
@@ -1407,7 +1422,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Portalgrab aus 4200 v.Chr. mitten in der Karst-Landschaft des Burren. &#x27;Burren&#x27; bedeutet &#x27;felsiger Ort&#x27; — bizarre Kalksteinplatten erinnern an Mondlandschaft.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Cliffs of Moher</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Cliffs%20of%20Moher" target="_blank" rel="noopener" class="wiki-link">Cliffs of Moher</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 50 Min</span>
           <span class="pill">⏱ 2 h</span>
@@ -1440,22 +1455,22 @@ p { margin-bottom: 8px; }
     <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Adare)</h3>
     <div class="restaurants">
       <div class="restaurant">
-        <div class="rest-head">1826 Adare <span class="rating">4.6★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=1826%20Adare%20Adare%20Ireland" target="_blank" rel="noopener" class="restaurant-link">1826 Adare</a> <span class="rating">4.6★</span></div>
         <div class="rest-kind">Fine Dining</div>
         <div class="rest-note">Im historischen Cottage. Wechselnde Karte. Braised Short Rib. Nur Do–So abends.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Pat Collins Bar <span class="rating">4.6★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Pat%20Collins%20Bar%20Adare%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Pat Collins Bar</a> <span class="rating">4.6★</span></div>
         <div class="rest-kind">Pub</div>
         <div class="rest-note">Beste Irish Stew laut Gästen. Live-Musik. Im Zentrum.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Aunty Lena&#x27;s <span class="rating">4.4★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Aunty%20Lena%27s%20Adare%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Aunty Lena&#x27;s</a> <span class="rating">4.4★</span></div>
         <div class="rest-kind">Gastropub</div>
         <div class="rest-note">Pub of the Year 2023. Sirloin Steak. Live-Musik.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">The Arches Restaurant <span class="rating">4.8★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=The%20Arches%20Restaurant%20Adare%20Ireland" target="_blank" rel="noopener" class="restaurant-link">The Arches Restaurant</a> <span class="rating">4.8★</span></div>
         <div class="rest-kind">Family</div>
         <div class="rest-note">Familiärer Charme, faire Preise. Bangers &amp; Mash. Gluten-frei verfügbar.</div>
       </div>
@@ -1475,7 +1490,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name">Dingle Stadt</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Dingle%20Stadt" target="_blank" rel="noopener" class="wiki-link">Dingle Stadt</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1h 30m</span>
           <span class="pill">⏱ 1 h</span>
@@ -1483,7 +1498,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Bunte Hafenstadt am westlichsten Punkt der Halbinsel. Bekannt durch Delfin Fungie (verschwunden 2020). Murphy&#x27;s Ice Cream (Geheimtipp). Optional: Dingle Oceanworld Aquarium.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Slea Head Drive</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Slea%20Head%20Drive" target="_blank" rel="noopener" class="wiki-link">Slea Head Drive</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 5 Min</span>
           <span class="pill">⏱ 3 h</span>
@@ -1492,7 +1507,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">50-km-Küstenschleife im Uhrzeigersinn. Schmale Straßen. Stopps: Dunbeg Fort (eisenzeitliches Klippenfort), Beehive Huts (bienenstockförmige Steinhütten, 1500 J. alt), Coumeenoole Beach.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Conor Pass (optional)</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Conor%20Pass%20%28optional%29" target="_blank" rel="noopener" class="wiki-link">Conor Pass (optional)</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 30 Min</span>
           <span class="pill">⏱ 1 h</span>
@@ -1520,22 +1535,22 @@ p { margin-bottom: 8px; }
     <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Killarney)</h3>
     <div class="restaurants">
       <div class="restaurant">
-        <div class="rest-head">Bricín Boxty House <span class="rating">4.8★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Bric%C3%ADn%20Boxty%20House%20Killarney%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Bricín Boxty House</a> <span class="rating">4.8★</span></div>
         <div class="rest-kind">Irish</div>
         <div class="rest-note">Berühmt für Boxty (Kartoffel-Pfannkuchen). Lamm-Curry-Boxty. Reservieren!</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">J.M. Reidy&#x27;s <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=J.M.%20Reidy%27s%20Killarney%20Ireland" target="_blank" rel="noopener" class="restaurant-link">J.M. Reidy&#x27;s</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Trad. Pub</div>
         <div class="rest-note">Historischer Pub mit vielen Nischen. Toastie &amp; Soup tagsüber.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Cronins Restaurant <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Cronins%20Restaurant%20Killarney%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Cronins Restaurant</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Restaurant</div>
         <div class="rest-note">Kleines elegantes Restaurant. Shepherd&#x27;s Pie, Lamb Shank.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Harrow Killarney <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Harrow%20Killarney%20Killarney%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Harrow Killarney</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Restaurant</div>
         <div class="rest-note">Gehobene Küche. Seared Scallops, Lamb Wellington.</div>
       </div>
@@ -1554,7 +1569,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name">Ross Castle</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Ross%20Castle" target="_blank" rel="noopener" class="wiki-link">Ross Castle</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 10 Min</span>
           <span class="pill">⏱ 1 h</span>
@@ -1563,7 +1578,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Mittelalterlicher Tower-House (15. Jh.) am Lough Leane. Geführte Tower-Tour. Boots-Touren zu Innisfallen Island (€15).</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Ladies&#x27; View / Molls Gap</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Ladies%27%20View%20/%20Molls%20Gap" target="_blank" rel="noopener" class="wiki-link">Ladies&#x27; View / Molls Gap</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 25 Min</span>
           <span class="pill">⏱ 30 Min</span>
@@ -1572,7 +1587,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Aussichtspunkte im Killarney National Park. &#x27;Ladies View&#x27; nach Queen Victoria&#x27;s Hofdamen benannt. Café mit Rooftop-Terrasse.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Sneem / Waterville / Cahersiveen</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Sneem%20/%20Waterville%20/%20Cahersiveen" target="_blank" rel="noopener" class="wiki-link">Sneem / Waterville / Cahersiveen</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1h 30m</span>
           <span class="pill">⏱ 3 h</span>
@@ -1605,22 +1620,22 @@ p { margin-bottom: 8px; }
     <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Killarney)</h3>
     <div class="restaurants">
       <div class="restaurant">
-        <div class="rest-head">Bricín Boxty House <span class="rating">4.8★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Bric%C3%ADn%20Boxty%20House%20Killarney%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Bricín Boxty House</a> <span class="rating">4.8★</span></div>
         <div class="rest-kind">Irish</div>
         <div class="rest-note">Berühmt für Boxty (Kartoffel-Pfannkuchen). Lamm-Curry-Boxty. Reservieren!</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">J.M. Reidy&#x27;s <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=J.M.%20Reidy%27s%20Killarney%20Ireland" target="_blank" rel="noopener" class="restaurant-link">J.M. Reidy&#x27;s</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Trad. Pub</div>
         <div class="rest-note">Historischer Pub mit vielen Nischen. Toastie &amp; Soup tagsüber.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Cronins Restaurant <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Cronins%20Restaurant%20Killarney%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Cronins Restaurant</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Restaurant</div>
         <div class="rest-note">Kleines elegantes Restaurant. Shepherd&#x27;s Pie, Lamb Shank.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Harrow Killarney <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Harrow%20Killarney%20Killarney%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Harrow Killarney</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Restaurant</div>
         <div class="rest-note">Gehobene Küche. Seared Scallops, Lamb Wellington.</div>
       </div>
@@ -1640,7 +1655,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name">Kenmare</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Kenmare" target="_blank" rel="noopener" class="wiki-link">Kenmare</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 35 Min</span>
           <span class="pill">⏱ 30 Min</span>
@@ -1648,7 +1663,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Charmante kleine Stadt zwischen Kerry und Beara. Coffee Stop, bunte Hauptstraße. Star Wars: &#x27;Henry Street&#x27; Eis-Café.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Healy Pass (R574)</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Healy%20Pass%20%28R574%29" target="_blank" rel="noopener" class="wiki-link">Healy Pass (R574)</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 40 Min</span>
           <span class="pill">⏱ 1 h</span>
@@ -1684,22 +1699,22 @@ p { margin-bottom: 8px; }
     <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Cork)</h3>
     <div class="restaurants">
       <div class="restaurant">
-        <div class="rest-head">Market Lane <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Market%20Lane%20Cork%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Market Lane</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Irish</div>
         <div class="rest-note">Cork-Klassiker. Bacon &amp; Cabbage. Abends ausgebucht — eher Lunch.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">The SpitJack <span class="rating">4.6★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=The%20SpitJack%20Cork%20Ireland" target="_blank" rel="noopener" class="restaurant-link">The SpitJack</a> <span class="rating">4.6★</span></div>
         <div class="rest-kind">Brunch/Dinner</div>
         <div class="rest-note">Bekannt für Rotisserie. Brunch hervorragend. Abends Steaks.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">The Glass Curtain <span class="rating">4.9★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=The%20Glass%20Curtain%20Cork%20Ireland" target="_blank" rel="noopener" class="restaurant-link">The Glass Curtain</a> <span class="rating">4.9★</span></div>
         <div class="rest-kind">Fine Dining</div>
         <div class="rest-note">Beste Bewertung Cork. Tasting Menu. Reservierung weit im Voraus.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Cornstore <span class="rating">4.4★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Cornstore%20Cork%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Cornstore</a> <span class="rating">4.4★</span></div>
         <div class="rest-kind">Gastropub</div>
         <div class="rest-note">Steak House. Pan-Seared Salmon, Duck Legs. Outdoor-Plätze.</div>
       </div>
@@ -1718,7 +1733,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name">Blarney Castle &amp; Gardens</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Blarney%20Castle%20%26%20Gardens" target="_blank" rel="noopener" class="wiki-link">Blarney Castle &amp; Gardens</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 20 Min</span>
           <span class="pill">⏱ 2 h</span>
@@ -1727,7 +1742,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Mittelalterliche Burg (15. Jh.) mit dem &#x27;Blarney Stone&#x27; — wer ihn küsst, soll die &#x27;Gabe der Beredsamkeit&#x27; bekommen. Stein erreichbar nur durch Rückwärts-Hängen über 27m Höhe (Aufpasser hält). Schöne Gärten.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Rock of Cashel</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Rock%20of%20Cashel" target="_blank" rel="noopener" class="wiki-link">Rock of Cashel</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1h 50m</span>
           <span class="pill">⏱ 1h 30m</span>
@@ -1761,22 +1776,22 @@ p { margin-bottom: 8px; }
     <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Waterford)</h3>
     <div class="restaurants">
       <div class="restaurant">
-        <div class="rest-head">Momo Restaurant <span class="rating">4.8★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Momo%20Restaurant%20Waterford%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Momo Restaurant</a> <span class="rating">4.8★</span></div>
         <div class="rest-kind">Restaurant</div>
         <div class="rest-note">Konsistent Top-Adresse in Waterford. Wechselnde Spezialitäten.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Everett&#x27;s Restaurant <span class="rating">4.8★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Everett%27s%20Restaurant%20Waterford%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Everett&#x27;s Restaurant</a> <span class="rating">4.8★</span></div>
         <div class="rest-kind">Fine Dining</div>
         <div class="rest-note">Gehobene irische Küche. Scallops, Beef Shin. Nur Di–So.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Emiliano&#x27;s Restaurant <span class="rating">4.8★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Emiliano%27s%20Restaurant%20Waterford%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Emiliano&#x27;s Restaurant</a> <span class="rating">4.8★</span></div>
         <div class="rest-kind">Italian</div>
         <div class="rest-note">Authentisch italienisch. Beste Truffle-Pasta. Alternative zu irisch.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">McLeary&#x27;s Restaurant <span class="rating">4.7★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=McLeary%27s%20Restaurant%20Waterford%20Ireland" target="_blank" rel="noopener" class="restaurant-link">McLeary&#x27;s Restaurant</a> <span class="rating">4.7★</span></div>
         <div class="rest-kind">Irish</div>
         <div class="rest-note">Sehr gute Fish &amp; Chips, gutes Preis-Leistung. Walk-in only.</div>
       </div>
@@ -1795,7 +1810,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name">Kilkenny Castle &amp; Stadt</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Kilkenny%20Castle%20%26%20Stadt" target="_blank" rel="noopener" class="wiki-link">Kilkenny Castle &amp; Stadt</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 50 Min</span>
           <span class="pill">⏱ 3 h</span>
@@ -1835,27 +1850,27 @@ p { margin-bottom: 8px; }
     <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Arklow)</h3>
     <div class="restaurants">
       <div class="restaurant">
-        <div class="rest-head">Sparrows Nest <span class="rating">4.8★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Sparrows%20Nest%20Arklow%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Sparrows Nest</a> <span class="rating">4.8★</span></div>
         <div class="rest-kind">Restaurant</div>
         <div class="rest-note">In Wicklow Town (15 Min). Garlic Mushrooms. Nur Do–So.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Tapau House <span class="rating">4.8★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Tapau%20House%20Arklow%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Tapau House</a> <span class="rating">4.8★</span></div>
         <div class="rest-kind">Asian Fusion</div>
         <div class="rest-note">Versteckter Geheimtipp. Kimchi Beef Fried Rice.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Grizzly x Napkin <span class="rating">4.9★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Grizzly%20x%20Napkin%20Arklow%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Grizzly x Napkin</a> <span class="rating">4.9★</span></div>
         <div class="rest-kind">Pizza/Burger</div>
         <div class="rest-note">Top-bewertete Pizza/Burger. Veggie/Vegan-Optionen. Nur Do–So abends.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Taste of Italy <span class="rating">4.9★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Taste%20of%20Italy%20Arklow%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Taste of Italy</a> <span class="rating">4.9★</span></div>
         <div class="rest-kind">Italian Café</div>
         <div class="rest-note">Sehr kleines familiäres Café. Hausgemachte Pasta. Nur tagsüber.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">The Old Ship Inn <span class="rating">4.6★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=The%20Old%20Ship%20Inn%20Arklow%20Ireland" target="_blank" rel="noopener" class="restaurant-link">The Old Ship Inn</a> <span class="rating">4.6★</span></div>
         <div class="rest-kind">Pub/Restaurant</div>
         <div class="rest-note">Klassischer Pub. Roast Beef, Fish &amp; Chips. Live-Bands am Wochenende.</div>
       </div>
@@ -1874,7 +1889,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name">Glendalough Monastic City</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Glendalough%20Monastic%20City" target="_blank" rel="noopener" class="wiki-link">Glendalough Monastic City</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1 h</span>
           <span class="pill">⏱ 1h 30m</span>
@@ -1883,7 +1898,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Klostersiedlung gegründet 6. Jh. von St. Kevin im &#x27;Tal der zwei Seen&#x27;. Round Tower (30m, 11. Jh.), Cathedral, St. Kevin&#x27;s Kitchen (Kirche). Upper und Lower Lake.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Glendalough Lakes Walk</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Glendalough%20Lakes%20Walk" target="_blank" rel="noopener" class="wiki-link">Glendalough Lakes Walk</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 5 Min</span>
           <span class="pill">⏱ 1h 30m</span>
@@ -1892,7 +1907,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">1,5h-Loop am Upper Lake, leicht und kinderwagentauglich. Wildtiere: Hirsche im Tal.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Sally Gap / Wicklow Gap</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Sally%20Gap%20/%20Wicklow%20Gap" target="_blank" rel="noopener" class="wiki-link">Sally Gap / Wicklow Gap</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 30 Min</span>
           <span class="pill">⏱ 2 h</span>
@@ -1926,27 +1941,27 @@ p { margin-bottom: 8px; }
     <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Arklow)</h3>
     <div class="restaurants">
       <div class="restaurant">
-        <div class="rest-head">Sparrows Nest <span class="rating">4.8★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Sparrows%20Nest%20Arklow%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Sparrows Nest</a> <span class="rating">4.8★</span></div>
         <div class="rest-kind">Restaurant</div>
         <div class="rest-note">In Wicklow Town (15 Min). Garlic Mushrooms. Nur Do–So.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Tapau House <span class="rating">4.8★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Tapau%20House%20Arklow%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Tapau House</a> <span class="rating">4.8★</span></div>
         <div class="rest-kind">Asian Fusion</div>
         <div class="rest-note">Versteckter Geheimtipp. Kimchi Beef Fried Rice.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Grizzly x Napkin <span class="rating">4.9★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Grizzly%20x%20Napkin%20Arklow%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Grizzly x Napkin</a> <span class="rating">4.9★</span></div>
         <div class="rest-kind">Pizza/Burger</div>
         <div class="rest-note">Top-bewertete Pizza/Burger. Veggie/Vegan-Optionen. Nur Do–So abends.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">Taste of Italy <span class="rating">4.9★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=Taste%20of%20Italy%20Arklow%20Ireland" target="_blank" rel="noopener" class="restaurant-link">Taste of Italy</a> <span class="rating">4.9★</span></div>
         <div class="rest-kind">Italian Café</div>
         <div class="rest-note">Sehr kleines familiäres Café. Hausgemachte Pasta. Nur tagsüber.</div>
       </div>
       <div class="restaurant">
-        <div class="rest-head">The Old Ship Inn <span class="rating">4.6★</span></div>
+        <div class="rest-head"><a href="https://www.google.com/maps/search/?api=1&query=The%20Old%20Ship%20Inn%20Arklow%20Ireland" target="_blank" rel="noopener" class="restaurant-link">The Old Ship Inn</a> <span class="rating">4.6★</span></div>
         <div class="rest-kind">Pub/Restaurant</div>
         <div class="rest-note">Klassischer Pub. Roast Beef, Fish &amp; Chips. Live-Bands am Wochenende.</div>
       </div>
@@ -1971,7 +1986,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Check-out meist bis 11:00. Tank vorher voll machen.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name">Optional: Dún Laoghaire / Bray</div>
+        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=D%C3%BAn%20Laoghaire%20/%20Bray" target="_blank" rel="noopener" class="wiki-link">Optional: Dún Laoghaire / Bray</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1h 10m</span>
           <span class="pill">⏱ 1 h</span>
