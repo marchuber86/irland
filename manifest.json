@@ -1,0 +1,26 @@
+{
+  "name": "Irland Roadtrip 2026",
+  "short_name": "Irland 2026",
+  "description": "Reiseführer 25.5.–11.6.2026",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1a4d2e",
+  "theme_color": "#1a4d2e",
+  "lang": "de",
+  "icons": [
+    {
+      "src": "icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

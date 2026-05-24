@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1a4d2e">
+  <title>Irland 2026</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Irland 2026">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  background: #f7f7f5;
+  padding: 0;
+  margin: 0;
+}
+.container { max-width: 720px; margin: 0 auto; padding: 16px; }
+header.cover {
+  background: linear-gradient(135deg, #1a4d2e, #2d6e44);
+  color: white;
+  padding: 32px 16px 28px;
+  text-align: center;
+}
+header.cover h1 { font-size: 28px; margin-bottom: 6px; font-weight: 700; }
+header.cover .subtitle { font-size: 14px; opacity: 0.9; }
+
+h2 {
+  color: #1a4d2e;
+  font-size: 18px;
+  margin: 20px 0 10px;
+  padding-bottom: 4px;
+  border-bottom: 2px solid #e8f0ea;
+}
+h3 { color: #1a4d2e; font-size: 14px; margin: 14px 0 6px; font-weight: 600; }
+p { margin-bottom: 8px; }
+.muted { color: #777; font-size: 13px; }
+
+/* Cover sections */
+.section { background: white; border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.checklist-row {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+.checklist-row:last-child { border-bottom: none; }
+.checklist-row b { color: #1a4d2e; display: block; margin-bottom: 2px; }
+.checklist-row .when { display: inline-block; background: #fff8dc; color: #b8860b; padding: 1px 8px; border-radius: 4px; font-size: 12px; margin-right: 6px; font-weight: 600; }
+.checklist-row .how { color: #555; font-size: 13px; }
+
+/* TOC */
+.toc-grid { display: flex; flex-direction: column; gap: 6px; }
+.toc-row {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background: white;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #e0e0e0;
+  transition: background 0.15s;
+}
+.toc-row:active { background: #e8f0ea; }
+.toc-row .tag-num {
+  font-weight: 700;
+  color: #1a73e8;
+  min-width: 60px;
+  font-size: 15px;
+}
+.toc-row .tag-info { flex: 1; }
+.toc-row .tag-title { font-weight: 600; color: #333; font-size: 14px; }
+.toc-row .tag-meta { font-size: 12px; color: #777; margin-top: 2px; }
+
+/* Day card */
+.day-card {
+  background: white;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  scroll-margin-top: 12px;
+}
+.day-header {
+  background: #1a4d2e;
+  color: white;
+  padding: 16px;
+}
+.day-header h2 {
+  color: white;
+  font-size: 19px;
+  border: none;
+  margin: 0 0 4px;
+}
+.day-header .day-meta { font-size: 13px; opacity: 0.92; }
+.day-header .day-meta b { color: #fff8dc; }
+.day-body { padding: 14px 16px; }
+.day-intro { font-size: 14px; color: #444; margin-bottom: 14px; }
+
+.long-flag {
+  background: #c0392b;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 6px;
+}
+
+/* Stops as cards (mobile-friendly, no horizontal scroll) */
+.stops { display: flex; flex-direction: column; gap: 8px; }
+.stop-card {
+  border: 1px solid #e8f0ea;
+  border-left: 3px solid #1a4d2e;
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: #fafbfa;
+}
+.stop-card .stop-name { font-weight: 600; color: #1a4d2e; font-size: 14px; margin-bottom: 4px; }
+.stop-card .stop-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+.stop-meta .pill {
+  background: #e8f0ea;
+  color: #1a4d2e;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+.stop-meta .pill.fee { background: #f5f5f5; color: #666; }
+.stop-desc { font-size: 13px; color: #555; line-height: 1.4; }
+
+.day-totals {
+  display: flex;
+  justify-content: space-around;
+  background: #e8f0ea;
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #1a4d2e;
+  font-weight: 600;
+}
+.day-totals span small { display: block; font-size: 11px; opacity: 0.7; font-weight: normal; }
+
+/* Bonus & Kid blocks */
+.bonus-box {
+  background: #fff8dc;
+  border: 1px solid #b8860b;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-top: 12px;
+}
+.bonus-box h3 { color: #b8860b; margin-top: 0; }
+.bonus-item { margin-bottom: 6px; font-size: 13px; }
+.bonus-item:last-child { margin-bottom: 0; }
+.bonus-item b { color: #b8860b; }
+
+.kid-box {
+  background: #fde9e8;
+  border: 1px solid #e74c3c;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-top: 12px;
+}
+.kid-box h3 { color: #c0392b; margin-top: 0; }
+.kid-box p { font-size: 13px; color: #444; }
+
+/* Restaurants */
+.restaurants { margin-top: 14px; }
+.restaurant {
+  padding: 8px 10px;
+  border-bottom: 1px solid #eee;
+}
+.restaurant:last-child { border-bottom: none; }
+.rest-head { font-weight: 600; color: #333; font-size: 14px; }
+.rest-head .rating {
+  color: #b8860b;
+  font-size: 12px;
+  font-weight: normal;
+}
+.rest-kind { color: #777; font-size: 12px; }
+.rest-note { font-size: 13px; color: #555; margin-top: 2px; line-height: 1.4; }
+
+/* Nav button */
+.nav-button {
+  display: block;
+  background: #1a73e8;
+  color: white !important;
+  text-decoration: none;
+  text-align: center;
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  margin-top: 14px;
+}
+.nav-button:active { background: #1557b0; }
+
+/* Back to top */
+.back-to-top {
+  display: block;
+  text-align: center;
+  margin-top: 14px;
+  padding: 8px;
+  color: #1a73e8;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+/* Wide screens */
+@media (min-width: 720px) {
+  body { font-size: 17px; }
+  header.cover { padding: 48px 16px 40px; }
+  header.cover h1 { font-size: 36px; }
+}
+</style>
+</head>
+<body>
+<header class="cover" id="top">
+  <h1>Irland Roadtrip 2026</h1>
+  <div class="subtitle">25. Mai – 11. Juni · 18 Tage · gegen den Uhrzeigersinn</div>
+</header>
+<div class="container">
+<section class="section" id="overview">
+  <h2>Übersicht</h2>
+  <p>Dublin (3 Nächte) → Belfast → Letterkenny (2) → Enniscrone → Westport → Galway (2) → Adare → Killarney (2) → Cork → Waterford → Arklow (2) → Dublin Airport</p>
+</section>
+<section class="section">
+  <h2>Last-Minute-Checkliste (Stand 24.5.)</h2>
+  <div class="checklist-row">
+    <b>Trinity College / Book of Kells</b>
+    <span class="when">Heute / morgen</span>
+    <span class="how">tcd.ie online (für Tag 1)</span>
+  </div>
+  <div class="checklist-row">
+    <b>Carrick-a-Rede Rope Bridge</b>
+    <span class="when">Heute checken</span>
+    <span class="how">nationaltrust.org.uk (Tag 4)</span>
+  </div>
+  <div class="checklist-row">
+    <b>Cliffs of Moher Timed Entry</b>
+    <span class="when">Diese Woche</span>
+    <span class="how">cliffsofmoher.ie (Tag 10)</span>
+  </div>
+  <div class="checklist-row">
+    <b>Inis Mór Fähre (falls Var. A)</b>
+    <span class="when">Bis So 1.6.</span>
+    <span class="how">aranislandsferries.com (Tag 9A)</span>
+  </div>
+  <div class="checklist-row">
+    <b>OPW Heritage Card</b>
+    <span class="when">Vor Ort</span>
+    <span class="how">Bei Clonmacnoise oder Trim Tag 2 kaufen</span>
+  </div>
+  <div class="checklist-row">
+    <b>National Trust Mitgliedschaft</b>
+    <span class="when">Vor Ort</span>
+    <span class="how">Am Visitor Centre Causeway Tag 4</span>
+  </div>
+  <div class="checklist-row">
+    <b>Google Maps Offline-Karten</b>
+    <span class="when">Vor Abflug</span>
+    <span class="how">Irland UND Nordirland separat</span>
+  </div>
+  <div class="checklist-row">
+    <b>Reisepass + Mietwagen-Doku</b>
+    <span class="when">Vor Abflug</span>
+    <span class="how">EU-Führerschein reicht, Pass nötig für NI-Hotel</span>
+  </div>
+</section>
+<section class="section">
+  <h2>Sparkarten (vor Ort kaufen)</h2>
+  <p><b>OPW Heritage Card</b> (€40 Familie): Clonmacnoise, Trim, Glenveagh, Ross Castle, Rock of Cashel, Kilkenny Castle. Rechnet sich ab 3 Sites.</p>
+  <p><b>National Trust Mitgliedschaft</b> (~£72 Familie/Jahr): Giant's Causeway Visitor Centre + Parken + Carrick-a-Rede. Rechnet sich ab beiden Tag-4-Stopps.</p>
+</section>
+<section class="section">
+  <h2>Lange Tage</h2>
+  <p><b>Tag 4</b> (Causeway Coast), <b>Tag 11</b> (Dingle), <b>Tag 13</b> (Beara) — alle mit roter Warnung am Tagesblatt. Früh starten, ggf. Stopps weglassen.</p>
+</section>
+<section class="section" id="toc">
+  <h2>Inhaltsverzeichnis</h2>
+  <p class="muted">Tippe auf einen Tag, um zur entsprechenden Sektion zu springen.</p>
+  <div class="toc-grid" style="margin-top: 12px;">
+    <a class="toc-row" href="#day-0">
+      <div class="tag-num">Tag 0</div>
+      <div class="tag-info">
+        <div class="tag-title">Ankunft Dublin</div>
+        <div class="tag-meta">So 25. Mai · The Croke Park Hotel</div>
+      </div>
+    </a>
+    <a class="toc-row" href="#day-1">
+      <div class="tag-num">Tag 1</div>
+      <div class="tag-info">
+        <div class="tag-title">Dublin Stadt</div>
+        <div class="tag-meta">Mo 26. Mai · The Croke Park Hotel</div>
+      </div>
+    </a>
+    <a class="toc-row" href="#day-2">
+      <div class="tag-num">Tag 2</div>
+      <div class="tag-info">
+        <div class="tag-title">Daytrip Clonmacnoise + Trim</div>
+        <div class="tag-meta">Di 27. Mai · The Croke Park Hotel</div>
+      </div>
+    </a>
+    <a class="toc-row" href="#day-3">
+      <div class="tag-num">Tag 3</div>
+      <div class="tag-info">
+        <div class="tag-title">Dublin → Belfast</div>
+        <div class="tag-meta">Mi 28. Mai · Leonardo Hotel Belfast</div>
+      </div>
+    </a>
+    <a class="toc-row" href="#day-4">
+      <div class="tag-num">Tag 4</div>
+      <div class="tag-info">
+        <div class="tag-title">Causeway Coast → Letterkenny</div>
+        <div class="tag-meta">Do 29. Mai · Clanree Hotel Letterkenny</div>
+      </div>
+    </a>
+    <a class="toc-row" href="#day-5">
+      <div class="tag-num">Tag 5</div>
+      <div class="tag-info">
+        <div class="tag-title">Glenveagh National Park</div>
+        <div class="tag-meta">Fr 30. Mai · Clanree Hotel Letterkenny</div>
+      </div>
+    </a>
+    <a class="toc-row" href="#day-6">
+      <div class="tag-num">Tag 6</div>
+      <div class="tag-info">
+        <div class="tag-title">Letterkenny → Enniscrone</div>
+        <div class="tag-meta">Sa 31. Mai · Diamond Coast Hotel Enniscrone</div>
+      </div>
+    </a>
+    <a class="toc-row" href="#day-7">
+      <div class="tag-num">Tag 7</div>
+      <div class="tag-info">
+        <div class="tag-title">Enniscrone → Westport via Achill</div>
+        <div class="tag-meta">So 1. Juni · Westport Glamping Doon Angus Farm</div>
+      </div>
+    </a>
+    <a class="toc-row" href="#day-8">
+      <div class="tag-num">Tag 8</div>
+      <div class="tag-info">
+        <div class="tag-title">Westport → Galway via Connemara</div>
+        <div class="tag-meta">Mo 2. Juni · Menlo Park Hotel Galway</div>
+      </div>
+    </a>
+    <a class="toc-row" href="#day-9A">
+      <div class="tag-num">Tag 9A</div>
+      <div class="tag-info">
+        <div class="tag-title">Inis Mór (Aran Islands)</div>
+        <div class="tag-meta">Di 3. Juni · Menlo Park Hotel Galway</div>
+      </div>
+    </a>
+    <a class="toc-row" href="#day-9B">
+      <div class="tag-num">Tag 9B</div>
+      <div class="tag-info">
+        <div class="tag-title">Galway Stadt (Alternative)</div>
+        <div class="tag-meta">Di 3. Juni · Menlo Park Hotel Galway</div>
+      </div>
+    </a>
+    <a class="toc-row" href="#day-10">
+      <div class="tag-num">Tag 10</div>
+      <div class="tag-info">
+        <div class="tag-title">Galway → Adare via Cliffs of Moher</div>
+        <div class="tag-meta">Mi 4. Juni · Adare Country House</div>
+      </div>
+    </a>
+    <a class="toc-row" href="#day-11">
+      <div class="tag-num">Tag 11</div>
+      <div class="tag-info">
+        <div class="tag-title">Adare → Killarney via Dingle</div>
+        <div class="tag-meta">Do 5. Juni · The Birches Killarney</div>
+      </div>
+    </a>
+    <a class="toc-row" href="#day-12">
+      <div class="tag-num">Tag 12</div>
+      <div class="tag-info">
+        <div class="tag-title">Ring of Kerry</div>
+        <div class="tag-meta">Fr 6. Juni · The Birches Killarney</div>
+      </div>
+    </a>
+    <a class="toc-row" href="#day-13">
+      <div class="tag-num">Tag 13</div>
+      <div class="tag-info">
+        <div class="tag-title">Killarney → Cork via Beara</div>
+        <div class="tag-meta">Sa 7. Juni · Clayton Hotel Cork City</div>
+      </div>
+    </a>
+    <a class="toc-row" href="#day-14">
+      <div class="tag-num">Tag 14</div>
+      <div class="tag-info">
+        <div class="tag-title">Cork → Waterford via Blarney + Cashel</div>
+        <div class="tag-meta">So 8. Juni · Waterford Marina Hotel</div>
+      </div>
+    </a>
+    <a class="toc-row" href="#day-15">
+      <div class="tag-num">Tag 15</div>
+      <div class="tag-info">
+        <div class="tag-title">Waterford → Wicklow via Kilkenny</div>
+        <div class="tag-meta">Mo 9. Juni · Arklow Bay Hotel</div>
+      </div>
+    </a>
+    <a class="toc-row" href="#day-16">
+      <div class="tag-num">Tag 16</div>
+      <div class="tag-info">
+        <div class="tag-title">Glendalough + Wicklow Mountains</div>
+        <div class="tag-meta">Di 10. Juni · Arklow Bay Hotel</div>
+      </div>
+    </a>
+    <a class="toc-row" href="#day-17">
+      <div class="tag-num">Tag 17</div>
+      <div class="tag-info">
+        <div class="tag-title">Wicklow → Dublin Airport</div>
+        <div class="tag-meta">Mi 11. Juni · Heimflug</div>
+      </div>
+    </a>
+  </div>
+</section>
+<article class="day-card" id="day-0">
+  <div class="day-header">
+    <h2>Tag 0 — Ankunft Dublin</h2>
+    <div class="day-meta">So 25. Mai · Dublin Airport → Croke Park (15 Min) · <b>Hotel:</b> The Croke Park Hotel (3 Nächte)</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Ankunft am Vormittag/Mittag. Mietwagen abholen und ~15 Min ins Stadtzentrum. Erster Tag entspannt halten — Hotel-Check-in, kurze Erholung, abends durch das Stadtviertel oder Pub-Abendessen. Croke Park ist das GAA-Stadion (Hurling/Gaelic Football); falls Spielabend, wird&#x27;s lebhaft.</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Dublin Airport</div>
+        <div class="stop-meta">
+          <span class="pill">⏱ 45 Min</span>
+        </div>
+        <div class="stop-desc">Internationaler Flughafen Irlands. Mietwagen-Schalter Terminal 1/2 — plane Übergabe und Papierkram ein.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">The Croke Park Hotel</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 15 Min</span>
+        </div>
+        <div class="stop-desc">4-Sterne-Hotel direkt am GAA-Stadion. Check-in ab 15:00. Parkplatz hinter dem Hotel kostenpflichtig. Bar mit gutem Pub-Essen.</div>
+      </div>
+    </div>
+    <div class="day-totals">
+      <span>15 Min<small>Fahrt</small></span>
+      <span>45 Min<small>Besuch</small></span>
+      <span>≈ 1 h<small>Tagessumme</small></span>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>Croke Park GAA Museum + Stadium Tour (€16, ~1h, sehr kinderfreundlich, Kletter-Element mit Skyline Walk für Ältere). Spielfeld-Besuch und Hurling-Erlebnis. Alternative: Phoenix Park direkt vom Hotel erreichbar — größter Stadtpark Europas mit freilebenden Hirschen.</p>
+    </div>
+    <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Dublin)</h3>
+    <div class="restaurants">
+      <div class="restaurant">
+        <div class="rest-head">John Kavanagh &#x27;The Gravediggers&#x27; <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Trad. Pub</div>
+        <div class="rest-note">Legendärer historischer Pub neben Glasnevin-Friedhof. Bestes Coddle (irischer Eintopf) und perfektes Guinness.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">The Vintage Kitchen <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Restaurant</div>
+        <div class="rest-note">Intimes Restaurant mit modernen irischen Gerichten. Reservierung empfohlen. Montag-Abend BYOB.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Fagan&#x27;s Bar &amp; Restaurant <span class="rating">4.4★</span></div>
+        <div class="rest-kind">Gastropub</div>
+        <div class="rest-note">Klassischer Dubliner Pub, kurze Strecke vom Croke Park Hotel. Steak Sandwich, Carvery.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Old Mill Restaurant <span class="rating">4.5★</span></div>
+        <div class="rest-kind">Irish Pub</div>
+        <div class="rest-note">Traditionelle irische Küche in Temple Bar. Guinness Beef Stew. Stark frequentiert — reservieren.</div>
+      </div>
+    </div>
+    <a class="nav-button" href="https://www.google.com/maps/dir/?api=1&origin=Dublin%20Airport&origin_place_id=ChIJLxmTab4RZ0gRVfMlt7UbElU&destination=The%20Croke%20Park%20Hotel&destination_place_id=ChIJGSQYjmMOZ0gRslTDqVBuuCo&travelmode=driving">► Navigation in Google Maps öffnen</a>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+<article class="day-card" id="day-1">
+  <div class="day-header">
+    <h2>Tag 1 — Dublin Stadt</h2>
+    <div class="day-meta">Mo 26. Mai · zu Fuß im Stadtzentrum · <b>Hotel:</b> The Croke Park Hotel</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Reiner Stadttag — Auto stehen lassen. Vom Hotel ca. 25 Min zu Fuß ins Zentrum, oder Bus 5 Min. Trinity College mit Book of Kells am Morgen (Tickets unbedingt vorab online buchen, lange Schlangen!). Danach Parks und optional weitere Museen/Sehenswürdigkeiten.</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Trinity College &amp; Book of Kells</div>
+        <div class="stop-meta">
+          <span class="pill">⏱ 1h 30m</span>
+          <span class="pill fee">€18–25</span>
+        </div>
+        <div class="stop-desc">Älteste Universität Irlands (1592). Long Room der Bibliothek mit 200.000 Büchern war Vorlage für Hogwarts. Book of Kells = mittelalterliche illuminierte Evangelienhandschrift (~800 n.Chr.). Tickets unter tcd.ie.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">St. Stephen&#x27;s Green / Merrion Square</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 15 Min</span>
+          <span class="pill">⏱ 1 h</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">Georgianischer Stadtpark mit Teich und Skulpturen. Merrion Square hat farbige Türen, Oscar-Wilde-Statue, georgianische Häuser.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Optional: Dublin Castle / National Museum / Guinness Storehouse</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 15 Min</span>
+          <span class="pill">⏱ 2 h</span>
+          <span class="pill fee">0–€30</span>
+        </div>
+        <div class="stop-desc">Dublin Castle = ehem. Sitz der britischen Verwaltung. National Museum gratis (Wikinger, Hochkreuze). Guinness Storehouse = Brauerei-Tour mit Skybar.</div>
+      </div>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>Dublin Zoo im Phoenix Park (4.6★, ~€25) — sehr gut für Kinder mit Pinguinen, Giraffen, kostenfreiem Parken. Alternative: Imaginosity Kindermuseum (Sandyford, 25 Min) speziell für 0–9-Jährige. Oder Stadt + Park-Picknick im Phoenix Park (gratis, Hirsche sehen).</p>
+    </div>
+    <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Dublin)</h3>
+    <div class="restaurants">
+      <div class="restaurant">
+        <div class="rest-head">John Kavanagh &#x27;The Gravediggers&#x27; <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Trad. Pub</div>
+        <div class="rest-note">Legendärer historischer Pub neben Glasnevin-Friedhof. Bestes Coddle (irischer Eintopf) und perfektes Guinness.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">The Vintage Kitchen <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Restaurant</div>
+        <div class="rest-note">Intimes Restaurant mit modernen irischen Gerichten. Reservierung empfohlen. Montag-Abend BYOB.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Fagan&#x27;s Bar &amp; Restaurant <span class="rating">4.4★</span></div>
+        <div class="rest-kind">Gastropub</div>
+        <div class="rest-note">Klassischer Dubliner Pub, kurze Strecke vom Croke Park Hotel. Steak Sandwich, Carvery.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Old Mill Restaurant <span class="rating">4.5★</span></div>
+        <div class="rest-kind">Irish Pub</div>
+        <div class="rest-note">Traditionelle irische Küche in Temple Bar. Guinness Beef Stew. Stark frequentiert — reservieren.</div>
+      </div>
+    </div>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+<article class="day-card" id="day-2">
+  <div class="day-header">
+    <h2>Tag 2 — Daytrip Clonmacnoise + Trim</h2>
+    <div class="day-meta">Di 27. Mai · Dublin → Clonmacnoise → Trim → Dublin · <b>Hotel:</b> The Croke Park Hotel</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Erster Auto-Tag. Clonmacnoise zuerst (weiter weg, 1h45 von Dublin), dann zurück über Trim Castle. Clonmacnoise ist eine der bedeutendsten frühchristlichen Klostersiedlungen Irlands am Shannon. Trim Castle ist die größte normannische Burg Irlands (Drehort für Braveheart).</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Clonmacnoise Monastic Site</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 45m</span>
+          <span class="pill">⏱ 1h 30m</span>
+          <span class="pill fee">€8 (OPW)</span>
+        </div>
+        <div class="stop-desc">Klostersiedlung gegründet 544 n.Chr. von St. Ciarán am Shannon. Round Tower, mehrere Kirchen-Ruinen, Original-Hochkreuze im Museum. Video-Intro empfohlen.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Trim Castle</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 15m</span>
+          <span class="pill">⏱ 1h 30m</span>
+          <span class="pill fee">€5 Keep Tour</span>
+        </div>
+        <div class="stop-desc">Größte normannische Burg Irlands (1173). Drehort von &#x27;Braveheart&#x27;. Tower-Tour nur mit Ticket, Gelände frei zugänglich. Aussicht vom Keep schön.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Rückkehr Croke Park Hotel</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 50 Min</span>
+        </div>
+        <div class="stop-desc">Stadtverkehr Dublin: lieber vor 17:00 oder nach 18:30 ankommen.</div>
+      </div>
+    </div>
+    <div class="day-totals">
+      <span>3h 50m<small>Fahrt</small></span>
+      <span>3 h<small>Besuch</small></span>
+      <span>≈ 6h 50m<small>Tagessumme</small></span>
+    </div>
+    <div class="bonus-box">
+      <h3>Falls Zeit übrig</h3>
+      <div class="bonus-item"><b>Larchill Arcadian Gardens</b> — Auf dem Rückweg von Trim. Botanischer Garten mit Pfauen, Perlhühnern, Kaninchen, Bio-Beeren. Sehr kinderfreundlich.</div>
+      <div class="bonus-item"><b>Hill of Tara</b> — Antike Königsstätte Irlands (1 Mio. Jahre alte Cairn). 15 Min Umweg von Trim. Frei, kurzer Walk.</div>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>Larchill Gardens (siehe oben — Pfauen, Kaninchen, Picknick im Grünen). Alternative: Emerald Park (ehem. Tayto Park, 30 Min nordwestlich Dublin) — Achterbahnen, Mini-Zoo, Streichelzoo. Sehr beliebt bei kleinen Kindern, 4.6★. Voller Tag, eher anstelle von Clonmacnoise/Trim.</p>
+    </div>
+    <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Dublin)</h3>
+    <div class="restaurants">
+      <div class="restaurant">
+        <div class="rest-head">John Kavanagh &#x27;The Gravediggers&#x27; <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Trad. Pub</div>
+        <div class="rest-note">Legendärer historischer Pub neben Glasnevin-Friedhof. Bestes Coddle (irischer Eintopf) und perfektes Guinness.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">The Vintage Kitchen <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Restaurant</div>
+        <div class="rest-note">Intimes Restaurant mit modernen irischen Gerichten. Reservierung empfohlen. Montag-Abend BYOB.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Fagan&#x27;s Bar &amp; Restaurant <span class="rating">4.4★</span></div>
+        <div class="rest-kind">Gastropub</div>
+        <div class="rest-note">Klassischer Dubliner Pub, kurze Strecke vom Croke Park Hotel. Steak Sandwich, Carvery.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Old Mill Restaurant <span class="rating">4.5★</span></div>
+        <div class="rest-kind">Irish Pub</div>
+        <div class="rest-note">Traditionelle irische Küche in Temple Bar. Guinness Beef Stew. Stark frequentiert — reservieren.</div>
+      </div>
+    </div>
+    <a class="nav-button" href="https://www.google.com/maps/dir/?api=1&origin=The%20Croke%20Park%20Hotel&origin_place_id=ChIJGSQYjmMOZ0gRslTDqVBuuCo&destination=The%20Croke%20Park%20Hotel&destination_place_id=ChIJGSQYjmMOZ0gRslTDqVBuuCo&waypoints=Clonmacnoise%20Monastic%20Site%7CTrim%20Castle&waypoint_place_ids=ChIJxbhw_2RFXEgRk3Fx9hiTi2Y%7CChIJ1em0YxpeZ0gRZAni7HBpMWc&travelmode=driving">► Navigation in Google Maps öffnen</a>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+<article class="day-card" id="day-3">
+  <div class="day-header">
+    <h2>Tag 3 — Dublin → Belfast</h2>
+    <div class="day-meta">Mi 28. Mai · Dublin → Monasterboice → Belfast (2 h reine Fahrt) · <b>Hotel:</b> Leonardo Hotel Belfast (1 Nacht)</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Entspannter Fahrtag. Monasterboice als 30-Min-Stopp auf dem Weg — kleines Klosterruinen-Areal mit den besten Hochkreuzen Irlands (Muiredach&#x27;s Cross, 10. Jh.). In Belfast nachmittags ankommen, abends Titanic Quarter oder Cathedral Quarter.</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Monasterboice</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1 h</span>
+          <span class="pill">⏱ 30 Min</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">Frühchristliche Klosterruine mit 28m-Rundturm und drei Hochkreuzen. Muiredach&#x27;s High Cross (10. Jh.) gilt als das schönste Irlands — biblische Szenen in Stein.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Leonardo Hotel Belfast</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 15m</span>
+        </div>
+        <div class="stop-desc">Hotel an der Great Victoria Street, sehr zentral. Check-in 15:00. Restaurants und Pubs in Gehweite.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Optional Titanic Quarter</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 10 Min</span>
+          <span class="pill">⏱ 2 h</span>
+          <span class="pill fee">£25</span>
+        </div>
+        <div class="stop-desc">Titanic Belfast = modernes Museum am ehem. Werft-Standort. Sehr gut für Kinder (interaktiv, Aufzug). Eintritt online günstiger.</div>
+      </div>
+    </div>
+    <div class="day-totals">
+      <span>2h 25m<small>Fahrt</small></span>
+      <span>2h 30m<small>Besuch</small></span>
+      <span>≈ 4h 55m<small>Tagessumme</small></span>
+    </div>
+    <div class="bonus-box">
+      <h3>Falls Zeit übrig</h3>
+      <div class="bonus-item"><b>Castle Espie Wildfowl Reserve</b> — 30 Min Umweg vor Belfast. Wassergeflügel-Reservat der WWT mit Wildwood Play Area und Soft-Play. 4.6★, sehr gut für 3-4-Jährige.</div>
+      <div class="bonus-item"><b>Slane Castle / Hill of Slane</b> — 10 Min Umweg auf dem Weg nach Norden. Schloss-Tour + Hügel mit Aussicht. St. Patrick hat hier 433 das Osterfeuer entzündet.</div>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>Titanic Belfast ist hauptsächlich für Größere/Erwachsene. Stattdessen: Castle Espie (siehe Bonus) ideal. Oder Belfast Zoo (4.3★, 15 Min nördlich, Löwen + Giraffen). Bei Regen: W5 Discovery Centre an der Marina = großes interaktives Wissenschaftsmuseum für Kinder.</p>
+    </div>
+    <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Belfast)</h3>
+    <div class="restaurants">
+      <div class="restaurant">
+        <div class="rest-head">Kelly&#x27;s Cellars <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Trad. Pub</div>
+        <div class="rest-note">Belfasts ältester Pub (seit 1720). Live-Fiddler, offenes Feuer. Vegan Cottage Pie.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Duke of York <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Pub</div>
+        <div class="rest-note">Versteckt in Commercial Court mit ikonischer Vintage-Deko und Streetart.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">The Lantern Restaurant <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Bistro</div>
+        <div class="rest-note">Geheimtipp nahe Leonardo Hotel. Fish &amp; Chips, Sticky Toffee.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Fibber Magee <span class="rating">4.4★</span></div>
+        <div class="rest-kind">Irish Pub</div>
+        <div class="rest-note">Live-Musik-Pub gegenüber Crown. Bangers &amp; Mash. Wenige Minuten vom Hotel.</div>
+      </div>
+    </div>
+    <a class="nav-button" href="https://www.google.com/maps/dir/?api=1&origin=The%20Croke%20Park%20Hotel&origin_place_id=ChIJGSQYjmMOZ0gRslTDqVBuuCo&destination=Leonardo%20Hotel%20Belfast&destination_place_id=ChIJxS6aNlYIYUgRQRWKlfUl8m0&waypoints=Monasterboice&waypoint_place_ids=ChIJF1jyCQ43Z0gROrKexqJwmAE&travelmode=driving">► Navigation in Google Maps öffnen</a>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+<article class="day-card" id="day-4">
+  <div class="day-header">
+    <h2>Tag 4 — Causeway Coast → Letterkenny</h2>
+    <div class="day-meta">Do 29. Mai · Belfast → Carrick-a-Rede → Giant&#x27;s Causeway → Dunluce → Letterkenny · <b>Hotel:</b> Clanree Hotel Letterkenny (2 Nächte)</div>
+    <div class="long-flag">LANGER TAG — früh starten</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Einer der spektakulärsten Fahrtage. Causeway Coast = UNESCO-Weltkulturerbe. Frühzeitig starten (Belfast ab 8:30), Carrick-a-Rede zuerst (Tickets vorab buchen, nationaltrust.org.uk). Giants Causeway mittags. NT-Mitgliedschaft (~£72 Familie) lohnt sich, da Carrick-a-Rede + Causeway-Visitor-Centre + Parken inklusive.</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Carrick-a-Rede Rope Bridge</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 45m</span>
+          <span class="pill">⏱ 1h 15m</span>
+          <span class="pill fee">£15</span>
+        </div>
+        <div class="stop-desc">Hängebrücke aus Tauen zwischen Festland und kleiner Felseninsel (Lachsfischer-Geschichte). 30m über dem Meer. Bei starkem Wind geschlossen. Timed Entry buchen. Mit Kleinkind heikel.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Giant&#x27;s Causeway</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 30 Min</span>
+          <span class="pill">⏱ 2 h</span>
+          <span class="pill fee">frei (Walk), £15 Centre</span>
+        </div>
+        <div class="stop-desc">40.000 sechseckige Basaltsäulen, durch Lava-Abkühlung entstanden (60 Mio. Jahre). Legende: Riese Finn McCool baute Damm nach Schottland. Walk frei. Shuttle £1.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Dunluce Castle</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 15 Min</span>
+          <span class="pill">⏱ 45 Min</span>
+          <span class="pill fee">£6 (außen frei)</span>
+        </div>
+        <div class="stop-desc">Mittelalterliche Burgruine auf 30m-Klippe (13. Jh.). Berühmt: ein Teil der Küche stürzte 1639 mitsamt Personal ins Meer. Foto-Spot von außen reicht meist.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Clanree Hotel Letterkenny</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 2h 10m</span>
+        </div>
+        <div class="stop-desc">4-Sterne-Hotel mit Schwimmbad, Sauna. Familienfreundlich. ~7h Gesamtreise heute.</div>
+      </div>
+    </div>
+    <div class="day-totals">
+      <span>4h 40m<small>Fahrt</small></span>
+      <span>4 h<small>Besuch</small></span>
+      <span>≈ 8h 40m<small>Tagessumme</small></span>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>Carrick-a-Rede ist mit 3–4-Jährigem zu heikel (lange Schlange, steile Klippen, schmale Brücke). EMPFEHLUNG: Skippen, dafür länger am Giant&#x27;s Causeway — die Basaltsäulen am Strand sind perfekt zum Drauf-Rumklettern. Optional: Old Bushmills Distillery (für Erwachsene) auslassen. Naturschutzgebiet Murlough Bay als ruhige Alternative.</p>
+    </div>
+    <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Letterkenny)</h3>
+    <div class="restaurants">
+      <div class="restaurant">
+        <div class="rest-head">Brewery Bar &amp; Restaurant <span class="rating">4.6★</span></div>
+        <div class="rest-kind">Restaurant/Bar</div>
+        <div class="rest-note">Lokales Top-Ziel am Market Square. Frischer Haddock, regional bezogen.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">The Cottage Bar <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Trad. Pub</div>
+        <div class="rest-note">Traditionell, offenes Feuer, Beer Garden. Bester Guinness der Stadt.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">McGinleys Bar <span class="rating">4.6★</span></div>
+        <div class="rest-kind">Trad. Pub</div>
+        <div class="rest-note">Familiengeführt mit Live-Musik fast jeden Abend. Mehrere Etagen.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">The Orchard Gastropub <span class="rating">4.5★</span></div>
+        <div class="rest-kind">Gastropub</div>
+        <div class="rest-note">Gut bewertet, generöse Portionen, kinderfreundlich. 5 Min vom Hotel.</div>
+      </div>
+    </div>
+    <a class="nav-button" href="https://www.google.com/maps/dir/?api=1&origin=Leonardo%20Hotel%20Belfast&origin_place_id=ChIJxS6aNlYIYUgRQRWKlfUl8m0&destination=Clanree%20Hotel&destination_place_id=ChIJ6X6KNBnrX0gRBLuLz8YlLPI&waypoints=Carrick-a-Rede%20Rope%20Bridge%7CGiant%27s%20Causeway%7CDunluce%20Castle&waypoint_place_ids=ChIJv-6dMFbTYUgRgtMXenp9h_w%7CChIJD48V9EQpYEgR0h_eGaCMIvM%7CChIJxUProkQvYEgRuJotYcUdqRA&travelmode=driving">► Navigation in Google Maps öffnen</a>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+<article class="day-card" id="day-5">
+  <div class="day-header">
+    <h2>Tag 5 — Glenveagh National Park</h2>
+    <div class="day-meta">Fr 30. Mai · Letterkenny → Glenveagh → Letterkenny · <b>Hotel:</b> Clanree Hotel Letterkenny</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Erholungstag nach dem langen Tag 4. Glenveagh ist 30 Min vom Hotel — der zweitgrößte Nationalpark Irlands mit dem märchenhaften Glenveagh Castle am See. Vom Visitor Centre zum Castle entweder zu Fuß (4 km, 50 Min) oder mit Shuttle-Bus (€3). Wanderung um den See möglich.</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Glenveagh Visitor Centre</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 30 Min</span>
+          <span class="pill">⏱ 30 Min</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">Eingang zum 170 km² großen Nationalpark — Berge, Seen, Heideland, irische Rothirsche. Café, Toiletten, Shop. Shuttle-Tickets hier.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Glenveagh Castle &amp; Gardens</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 5 Min</span>
+          <span class="pill">⏱ 2h 30m</span>
+          <span class="pill fee">€7</span>
+        </div>
+        <div class="stop-desc">Viktorianisches Schloss (1870) am Ufer des Lough Veagh. Bekannt durch dramatische Geschichte des amerikanischen Besitzers. Wunderschöne Gärten mit subtropischen Pflanzen.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Optional: Lake Walk Loop</div>
+        <div class="stop-meta">
+          <span class="pill">⏱ 1h 30m</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">1h-Wanderung am See — leicht, asphaltiert, kinderfreundlich. Wildtier-Beobachtung möglich.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Rückkehr Clanree Hotel</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 30 Min</span>
+        </div>
+        <div class="stop-desc">Hotel hat Pool — gut für nachmittägliche Erfrischung mit Kindern.</div>
+      </div>
+    </div>
+    <div class="day-totals">
+      <span>1h 5m<small>Fahrt</small></span>
+      <span>4h 30m<small>Besuch</small></span>
+      <span>≈ 5h 35m<small>Tagessumme</small></span>
+    </div>
+    <div class="bonus-box">
+      <h3>Falls Zeit übrig</h3>
+      <div class="bonus-item"><b>Doe Castle</b> — 30 Min nördlich. Malerische Burg am Wasser, kostenlos. Ruhig, fotogen.</div>
+      <div class="bonus-item"><b>Marble Hill Beach</b> — 20 Min nördlich Glenveagh. Langer goldener Sandstrand, perfekt für Nachmittag mit Kindern.</div>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>Glenveagh ist generell sehr kinderfreundlich. Hirsche im Park sehen ist Highlight. Shuttle-Bus zum Castle macht Spaß. Spielplatz am Visitor Centre. Alternative für Strand-Liebhaber: Marble Hill Beach (siehe Bonus). Falls Regen: Workhouse Museum in Dunfanaghy (kurze Tour, eindrucksvolle Geschichte).</p>
+    </div>
+    <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Letterkenny)</h3>
+    <div class="restaurants">
+      <div class="restaurant">
+        <div class="rest-head">Brewery Bar &amp; Restaurant <span class="rating">4.6★</span></div>
+        <div class="rest-kind">Restaurant/Bar</div>
+        <div class="rest-note">Lokales Top-Ziel am Market Square. Frischer Haddock, regional bezogen.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">The Cottage Bar <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Trad. Pub</div>
+        <div class="rest-note">Traditionell, offenes Feuer, Beer Garden. Bester Guinness der Stadt.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">McGinleys Bar <span class="rating">4.6★</span></div>
+        <div class="rest-kind">Trad. Pub</div>
+        <div class="rest-note">Familiengeführt mit Live-Musik fast jeden Abend. Mehrere Etagen.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">The Orchard Gastropub <span class="rating">4.5★</span></div>
+        <div class="rest-kind">Gastropub</div>
+        <div class="rest-note">Gut bewertet, generöse Portionen, kinderfreundlich. 5 Min vom Hotel.</div>
+      </div>
+    </div>
+    <a class="nav-button" href="https://www.google.com/maps/dir/?api=1&origin=Clanree%20Hotel&origin_place_id=ChIJ6X6KNBnrX0gRBLuLz8YlLPI&destination=Clanree%20Hotel&destination_place_id=ChIJ6X6KNBnrX0gRBLuLz8YlLPI&waypoints=Glenveagh%20National%20Park%7CGlenveagh%20Castle&waypoint_place_ids=ChIJq2a91qqbX0gRrW_oBUf6Xy8%7CChIJ440Plz6QX0gRX8y6rYQuVf4&travelmode=driving">► Navigation in Google Maps öffnen</a>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+<article class="day-card" id="day-6">
+  <div class="day-header">
+    <h2>Tag 6 — Letterkenny → Enniscrone</h2>
+    <div class="day-meta">Sa 31. Mai · Letterkenny → Grianán → Slieve League → Enniscrone (~5 h reine Fahrt) · <b>Hotel:</b> Diamond Coast Hotel Enniscrone (1 Nacht)</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Spektakulärer Donegal-Tag. Grianán of Aileach zuerst (kurzer Umweg nach Osten, dafür 360°-Aussicht von einem 2000 Jahre alten Ringfort). Dann lange Fahrt nach Westen zu den Slieve League Cliffs — höchste Meeresklippen Europas, weit weniger touristisch als Moher.</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Grianán Of Aileach</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 25 Min</span>
+          <span class="pill">⏱ 30 Min</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">Steinerne Ringfestung auf 250m Höhe aus dem 5.–7. Jh. Berühmt für 360°-Panorama über fünf Counties. Kurzer Fußweg vom Parkplatz.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Slieve League Cliffs</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 2h 10m</span>
+          <span class="pill">⏱ 2 h</span>
+          <span class="pill fee">€15 Parken</span>
+        </div>
+        <div class="stop-desc">Höchste Meeresklippen Europas (601m), dreimal so hoch wie die Cliffs of Moher. Bunglas Viewpoint reicht für die meisten. Steiler Weg nach oben — Aufpasser bei kleinen Kindern.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Diamond Coast Hotel</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 35m</span>
+        </div>
+        <div class="stop-desc">Direkt am Strand von Enniscrone. Schwimmbad. Familienhotel mit Spielzimmer.</div>
+      </div>
+    </div>
+    <div class="day-totals">
+      <span>4h 10m<small>Fahrt</small></span>
+      <span>2h 30m<small>Besuch</small></span>
+      <span>≈ 6h 40m<small>Tagessumme</small></span>
+    </div>
+    <div class="bonus-box">
+      <h3>Falls Zeit übrig</h3>
+      <div class="bonus-item"><b>Donegal Castle</b> — Auf dem Weg, in Donegal Town. Kompakte Burg-Tour (€5, 20 Min). Self-guided, sehr gut erhalten.</div>
+      <div class="bonus-item"><b>Glencolmcille Folk Village</b> — 30 Min Umweg von Slieve League. Rekonstruiertes Dorf wie es vor 200 Jahren aussah — Reetdach-Cottages, Schulhaus, Pub.</div>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>Slieve League: bei kleinen Kindern auf Klippen-Sicherung achten (kein Geländer am Pfad nach oben). Kinder lieben den Bus-Transfer hoch zum Bunglas. Alternative für Strand-Tag: Diamond Coast Hotel-Strand direkt am Hotel. Auf dem Weg: Donegal Castle (siehe Bonus) sehr überschaubar.</p>
+    </div>
+    <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Enniscrone)</h3>
+    <div class="restaurants">
+      <div class="restaurant">
+        <div class="rest-head">Gilroy&#x27;s Bar <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Pub/Restaurant</div>
+        <div class="rest-note">Bestes Restaurant im Ort. Beetroot Gnocchi, Krabben-Carpaccio.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Pilot Bar <span class="rating">4.5★</span></div>
+        <div class="rest-kind">Gastropub</div>
+        <div class="rest-note">Klein, immer voll. Stunning Seafood Chowder. Vorab reservieren.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Enniscrone Golf Club <span class="rating">4.5★</span></div>
+        <div class="rest-kind">Bar/Restaurant</div>
+        <div class="rest-note">Sehr gute Seafood Chowder, Fish &amp; Chips. Schöne Lage.</div>
+      </div>
+    </div>
+    <a class="nav-button" href="https://www.google.com/maps/dir/?api=1&origin=Clanree%20Hotel&origin_place_id=ChIJ6X6KNBnrX0gRBLuLz8YlLPI&destination=Diamond%20Coast%20Hotel&destination_place_id=ChIJ78UhtW4xWUgRie-CxqkiNNU&waypoints=Grian%C3%A1n%20Of%20Aileach%7CSlieve%20League%20Cliffs%20Centre&waypoint_place_ids=ChIJf0L1BEHkX0gR21xJvnSTCws%7CChIJ_XDgWicjX0gRVtQilCRiH9Y&travelmode=driving">► Navigation in Google Maps öffnen</a>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+<article class="day-card" id="day-7">
+  <div class="day-header">
+    <h2>Tag 7 — Enniscrone → Westport via Achill</h2>
+    <div class="day-meta">So 1. Juni · Enniscrone → Creevykeel → Achill Island → Keem → Westport · <b>Hotel:</b> Westport Glamping Doon Angus Farm (1 Nacht)</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Achill Island ist Irlands größte Insel — über eine Brücke erreichbar. Keem Bay am Ende der Straße ist eine der schönsten Buchten Irlands. Frühe Ankunft auf Achill empfehlenswert (kleine Parkplätze). Übernachtung in Glamping-Pods auf einem Bauernhof mit Tieren — perfekt für Kinder.</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Creevykeel Court Tomb</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1 h</span>
+          <span class="pill">⏱ 20 Min</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">Eines der besterhaltenen &#x27;Court Tombs&#x27; Irlands (~3500 v.Chr.). Halbkreis-förmiger Vorhof, 55m langer Cairn. Direkt an der N15, 25m Fußweg.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Achill Island</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 30m</span>
+          <span class="pill">⏱ 30 Min</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">Größte Insel Irlands, über Brücke erreichbar. Atlantic Drive an der Südküste (schmale Küstenstraße).</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Keem Beach</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 30 Min</span>
+          <span class="pill">⏱ 1h 30m</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">Hufeisenförmige Bucht am Ende der Achill-Straße. Goldener Sandstrand zwischen grünen Hängen, kristallklares Wasser. Steile, schmale Anfahrtsstraße. Lifeguard im Sommer.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Westport Glamping Doon Angus</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 10m</span>
+        </div>
+        <div class="stop-desc">Glamping-Pods auf Familien-Bauernhof. Eigene Bäder, Küchen. Pferde Misty und Lola füttern, frische Eier sammeln.</div>
+      </div>
+    </div>
+    <div class="day-totals">
+      <span>4h 10m<small>Fahrt</small></span>
+      <span>2h 20m<small>Besuch</small></span>
+      <span>≈ 6h 30m<small>Tagessumme</small></span>
+    </div>
+    <div class="bonus-box">
+      <h3>Falls Zeit übrig</h3>
+      <div class="bonus-item"><b>Westport House</b> — 20 Min vom Glamping-Hof. Historisches Anwesen aus 1600er, schöne Gärten. Aktuell teilweise renoviert.</div>
+      <div class="bonus-item"><b>Croagh Patrick</b> — Heiliger Berg Irlands (764m). Optional Wanderung von der Basis (5-6h für Erwachsene). Auch nur Foto vom Parkplatz.</div>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>PERFEKTER TAG FÜR KIND. Achill und Keem = lange Strände zum Toben. Westport Glamping = Bauernhof mit Pferden, Hunden, Hühnern — Eier sammeln, Tiere füttern. Tag 7 ist das Tier-Highlight des Trips. Tipp: am Glamping-Hof gleich nachmittags ankommen, damit Zeit für die Tiere bleibt.</p>
+    </div>
+    <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Westport)</h3>
+    <div class="restaurants">
+      <div class="restaurant">
+        <div class="rest-head">Matt Molloy&#x27;s <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Pub (Live-Musik)</div>
+        <div class="rest-note">Vom Chieftains-Flötisten. Session ab ~21:00. Nur Drinks/Musik.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">M.J. Hoban <span class="rating">4.6★</span></div>
+        <div class="rest-kind">Gastropub</div>
+        <div class="rest-note">Obere Etage mit Octagon-Blick. Korean Burger, Goat Cheese Croquettes.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">J.J. O&#x27;Malley&#x27;s <span class="rating">4.5★</span></div>
+        <div class="rest-kind">Restaurant/Pub</div>
+        <div class="rest-note">Pub unten, Restaurant oben. Crab Pasta, Curry. Live-Musik.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Porterhouse <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Irish Pub</div>
+        <div class="rest-note">Live-Musik-Pub. Kein eigenes Essen — kombiniere mit M.J. Hoban.</div>
+      </div>
+    </div>
+    <a class="nav-button" href="https://www.google.com/maps/dir/?api=1&origin=Diamond%20Coast%20Hotel&origin_place_id=ChIJ78UhtW4xWUgRie-CxqkiNNU&destination=Westport%20Glamping%20At%20Doon%20Angus%20Farm&destination_place_id=ChIJGRU5qQhkWUgRWmcqjKBlkzo&waypoints=Creevykeel%20Court%20Tomb%7CAchill%20Island%7CKeem%20Beach&waypoint_place_ids=ChIJeUtKpn3hXkgRDYjg1i0sz34%7CChIJ6Q4OktiZWUgRujS_C5BUMuw%7CChIJH1eUcmaWWUgRcAke4s6G7nU&travelmode=driving">► Navigation in Google Maps öffnen</a>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+<article class="day-card" id="day-8">
+  <div class="day-header">
+    <h2>Tag 8 — Westport → Galway via Connemara</h2>
+    <div class="day-meta">Mo 2. Juni · Westport → Kylemore → Connemara NP → Galway (~3 h reine Fahrt) · <b>Hotel:</b> Menlo Park Hotel Galway (2 Nächte)</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Connemara ist eine der schönsten Landschaften Irlands — Berge, Seen, Heideland. Kylemore Abbey ist das ikonischste Foto-Motiv des Trips (viktorianisches Schloss am See, jetzt Benediktinerinnenkloster). Connemara NP für eine Wanderung auf Diamond Hill (anspruchsvoll) oder leichte Loop-Trails.</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Kylemore Abbey</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 5m</span>
+          <span class="pill">⏱ 2 h</span>
+          <span class="pill fee">€17</span>
+        </div>
+        <div class="stop-desc">Viktorianisches Schloss am Pollacappul Lake (1867). Heute Benediktinerinnen-Kloster. Walled Garden 2 km entfernt (Shuttle). Café für Lunch. Romantische Tragödie der Erbauer (Mitchell Henry baute es seiner sterbenden Frau).</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Connemara National Park</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 5 Min</span>
+          <span class="pill">⏱ 1h 30m</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">Über 2.000 ha Berge, Heideland, Moor. Diamond Hill Walk (3h, Höhenmeter, gute Fitness) oder kürzere Trails. Diamond Hill = 442m Gipfel mit Panoramablick.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Menlo Park Hotel Galway</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 30m</span>
+        </div>
+        <div class="stop-desc">4-Sterne-Hotel mit Pool. 30 Min Walk in die Latin Quarter oder Bus 407 alle 30 Min.</div>
+      </div>
+    </div>
+    <div class="day-totals">
+      <span>2h 40m<small>Fahrt</small></span>
+      <span>3h 30m<small>Besuch</small></span>
+      <span>≈ 6h 10m<small>Tagessumme</small></span>
+    </div>
+    <div class="bonus-box">
+      <h3>Falls Zeit übrig</h3>
+      <div class="bonus-item"><b>Kylemore Walled Garden</b> — Im Kylemore-Ticket enthalten. 6 Acre viktorianischer Garten mit Glashäusern. Shuttle vom Hauptgebäude.</div>
+      <div class="bonus-item"><b>Killary Fjord</b> — 30 Min nördlich Kylemore. Einziger Fjord Irlands. Optional Bootstour (€30) oder nur Foto-Stopp am Aasleagh Falls.</div>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>Kylemore Abbey eher für Erwachsene interessant — aber Kinder mögen die Walled Gardens (Brücken, Bäche, Glashaus mit exotischen Pflanzen). Connemara NP hat einen kürzeren Buggy-tauglichen Trail (Ellis Wood Nature Trail, 30 Min). Connemara Ponies sieht man entlang der Straße — kostenloses Highlight für Kinder.</p>
+    </div>
+    <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Galway)</h3>
+    <div class="restaurants">
+      <div class="restaurant">
+        <div class="rest-head">O&#x27;Connell&#x27;s Bar <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Trad. Pub</div>
+        <div class="rest-note">Versteckter Innenhof-Biergarten (&#x27;Diagon Alley&#x27;-Vibe). Dough Bros Pizza im Hof.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Brasserie on the Corner <span class="rating">4.6★</span></div>
+        <div class="rest-kind">Restaurant</div>
+        <div class="rest-note">Gehobenes Seafood/Steak. John Dory, Wagyu. Reservierung nötig.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">The Dáil Bar <span class="rating">4.5★</span></div>
+        <div class="rest-kind">Gastropub</div>
+        <div class="rest-note">Warmer cozy Pub mit Kohlefeuer. Beef Stew, Cottage Pie.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">An Púcán <span class="rating">4.4★</span></div>
+        <div class="rest-kind">Gastropub</div>
+        <div class="rest-note">Beliebter Pub mit Trad-Music. Match-Tage sehr laut.</div>
+      </div>
+    </div>
+    <a class="nav-button" href="https://www.google.com/maps/dir/?api=1&origin=Westport%20Glamping%20At%20Doon%20Angus%20Farm&origin_place_id=ChIJGRU5qQhkWUgRWmcqjKBlkzo&destination=Menlo%20Park%20Hotel&destination_place_id=ChIJ_w3mFpWWW0gRAgV-t6-4Gt0&waypoints=Kylemore%20Abbey%7CConnemara%20National%20Park&waypoint_place_ids=ChIJ6Q5Npx4vWkgRqTFcJyqzpPE%7CChIJpTDKoYglWkgRyTeq9EjY0fY&travelmode=driving">► Navigation in Google Maps öffnen</a>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+<article class="day-card" id="day-9A">
+  <div class="day-header">
+    <h2>Tag 9A — Inis Mór (Aran Islands)</h2>
+    <div class="day-meta">Di 3. Juni · Galway → Rossaveal → Fähre → Inis Mór → zurück · <b>Hotel:</b> Menlo Park Hotel Galway</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Variante A — voller Committed-Tag. Fahrt zum Fährhafen Rossaveal (40 Min), 45-Min-Überfahrt nach Inis Mór, größte der Aran Islands. Die karge Atlantik-Insel mit Kalkstein-Feldmauern und dramatischen Klippen wird mit Rad, Pony-Trap oder Minibus erkundet. Dún Aonghasa, ein 3500 Jahre altes Steinfort auf einer 100m-Klippe, ist das Highlight.</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Fahrt zum Hafen Rossaveal</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 50 Min</span>
+        </div>
+        <div class="stop-desc">40 Min Fahrt westlich Galway. Parkplatz am Terminal. Tickets vorab unter aranislandsferries.com buchen.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Fähre nach Inis Mór</div>
+        <div class="stop-meta">
+          <span class="pill">⏱ 45 Min</span>
+          <span class="pill fee">€30 Hin/Rück</span>
+        </div>
+        <div class="stop-desc">45-Min-Überfahrt mit Aran Islands Ferries. Saisonale Frühfahrt ~10:30, Rückfahrt ~17:00. Innen oder Außendeck (windig).</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Inis Mór — Kilronan &amp; Insel</div>
+        <div class="stop-meta">
+          <span class="pill">⏱ 6 h</span>
+          <span class="pill fee">€15 Rad</span>
+        </div>
+        <div class="stop-desc">Insel-Hafen mit Rad-Verleih, Cafés, Restaurants. Per Rad zum Dún Aonghasa Fort (8km hin), Worm Hole, Seven Churches, Kilmurvey Beach. Bringt Layers — windig.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Rückfähre + Rückfahrt Galway</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 50 Min</span>
+          <span class="pill">⏱ 45 Min</span>
+        </div>
+        <div class="stop-desc">Fähre zurück ~17:00, dann 40 Min Auto. Hotel-Ankunft ~19:00.</div>
+      </div>
+    </div>
+    <div class="day-totals">
+      <span>1h 40m<small>Fahrt</small></span>
+      <span>7h 30m<small>Besuch</small></span>
+      <span>≈ 9h 10m<small>Tagessumme</small></span>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>Inis Mór ist anstrengend mit Kleinkind — frühe Fähre, lange Fahrradtour, Klippen am Dún Aonghasa OHNE Geländer (Vorsicht!). Mit 3-4-Jährigem: Pony-Trap statt Rad buchen (im Hafen verfügbar, ~€60 für 2h Inseltour). Kilmurvey Beach als entspannte Pause vor der Rückfahrt.</p>
+    </div>
+    <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Galway)</h3>
+    <div class="restaurants">
+      <div class="restaurant">
+        <div class="rest-head">O&#x27;Connell&#x27;s Bar <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Trad. Pub</div>
+        <div class="rest-note">Versteckter Innenhof-Biergarten (&#x27;Diagon Alley&#x27;-Vibe). Dough Bros Pizza im Hof.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Brasserie on the Corner <span class="rating">4.6★</span></div>
+        <div class="rest-kind">Restaurant</div>
+        <div class="rest-note">Gehobenes Seafood/Steak. John Dory, Wagyu. Reservierung nötig.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">The Dáil Bar <span class="rating">4.5★</span></div>
+        <div class="rest-kind">Gastropub</div>
+        <div class="rest-note">Warmer cozy Pub mit Kohlefeuer. Beef Stew, Cottage Pie.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">An Púcán <span class="rating">4.4★</span></div>
+        <div class="rest-kind">Gastropub</div>
+        <div class="rest-note">Beliebter Pub mit Trad-Music. Match-Tage sehr laut.</div>
+      </div>
+    </div>
+    <a class="nav-button" href="https://www.google.com/maps/dir/?api=1&origin=Menlo%20Park%20Hotel&origin_place_id=ChIJ_w3mFpWWW0gRAgV-t6-4Gt0&destination=Menlo%20Park%20Hotel&destination_place_id=ChIJ_w3mFpWWW0gRAgV-t6-4Gt0&waypoints=Aran%20Islands%20ferry%20%28Rossaveal%29&waypoint_place_ids=ChIJBYedFn1RWkgR_2sGhdbjN2I&travelmode=driving">► Navigation in Google Maps öffnen</a>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+<article class="day-card" id="day-9B">
+  <div class="day-header">
+    <h2>Tag 9B — Galway Stadt (Alternative)</h2>
+    <div class="day-meta">Di 3. Juni · Galway zu Fuß / mit Bus · <b>Hotel:</b> Menlo Park Hotel Galway</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Variante B — entspannter Stadttag, Auto stehen lassen. Vom Hotel 30 Min zu Fuß oder Bus 407 alle 30 Min in die Latin Quarter. Galway ist Irlands kulturelles Herz — Trad-Music in jedem Pub, Künstler-Szene, mittelalterliche Altstadt. Salthill Promenade am Nachmittag mit Atlantik-Brise.</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Galway Latin Quarter</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 30 Min</span>
+          <span class="pill">⏱ 3 h</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">Mittelalterliche Altstadt mit Kopfsteinpflaster und bunten Häusern. Quay Street und Shop Street mit Pubs, Buskerszene, Boutiquen. Lynch&#x27;s Castle (15. Jh.) im Banken-Gebäude.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Spanish Arch &amp; Galway Museum</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 5 Min</span>
+          <span class="pill">⏱ 1 h</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">Stadtmauer-Bogen von 1584 am Corrib-Fluss. Galway City Museum daneben (gratis): irische Maritimegeschichte, Claddagh-Tradition.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Salthill Promenade</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 10 Min</span>
+          <span class="pill">⏱ 2 h</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">3 km Strand-Promenade westlich der Stadt. Goldene Sandstrände, ältestes Aquarium Irlands. Tradition: &#x27;kicking the wall&#x27; am Ende.</div>
+      </div>
+    </div>
+    <div class="bonus-box">
+      <h3>Falls Zeit übrig</h3>
+      <div class="bonus-item"><b>Galway Atlantaquaria</b> — Nationales Aquarium an der Salthill Promenade. €15, 1-2h. Haie, Seepferdchen, Rochen. Sehr kinderfreundlich (4.3★).</div>
+      <div class="bonus-item"><b>Spiddal</b> — 20 Min westlich Galway. Gaeltacht-Dorf — gälisch sprechende Region. Strand und Studios mit Kunsthandwerk.</div>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>EMPFEHLUNG MIT KIND statt Variante A. Galway Atlantaquaria ist perfekt (siehe oben). Salthill = langer Strand zum Toben + Spielplatz an der Promenade. In der Altstadt fast immer Straßenmusiker, sehr lebendig. Tipp: Mit dem Bus 407 vom Hotel (alle 30 Min), spart Parkstress.</p>
+    </div>
+    <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Galway)</h3>
+    <div class="restaurants">
+      <div class="restaurant">
+        <div class="rest-head">O&#x27;Connell&#x27;s Bar <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Trad. Pub</div>
+        <div class="rest-note">Versteckter Innenhof-Biergarten (&#x27;Diagon Alley&#x27;-Vibe). Dough Bros Pizza im Hof.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Brasserie on the Corner <span class="rating">4.6★</span></div>
+        <div class="rest-kind">Restaurant</div>
+        <div class="rest-note">Gehobenes Seafood/Steak. John Dory, Wagyu. Reservierung nötig.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">The Dáil Bar <span class="rating">4.5★</span></div>
+        <div class="rest-kind">Gastropub</div>
+        <div class="rest-note">Warmer cozy Pub mit Kohlefeuer. Beef Stew, Cottage Pie.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">An Púcán <span class="rating">4.4★</span></div>
+        <div class="rest-kind">Gastropub</div>
+        <div class="rest-note">Beliebter Pub mit Trad-Music. Match-Tage sehr laut.</div>
+      </div>
+    </div>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+<article class="day-card" id="day-10">
+  <div class="day-header">
+    <h2>Tag 10 — Galway → Adare via Cliffs of Moher</h2>
+    <div class="day-meta">Mi 4. Juni · Galway → Dunguaire → Burren → Cliffs of Moher → Adare · <b>Hotel:</b> Adare Country House (1 Nacht)</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Die ikonischen Cliffs of Moher als Highlight. Dunguaire Castle (15 Min Foto-Stopp am Weg) und Burren (Mond-Landschaft aus Kalkstein) auf dem Weg. Nachmittag-Licht ist am besten an den Cliffs — Tickets vorab buchen (Zeitfenster).</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Dunguaire Castle</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 35 Min</span>
+          <span class="pill">⏱ 20 Min</span>
+          <span class="pill fee">frei (außen)</span>
+        </div>
+        <div class="stop-desc">Tower-House aus 1520 am Galway Bay. Sehr fotogen wegen der Lage direkt am Wasser. Innen oft geschlossen — Foto-Stopp reicht.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Poulnabrone Dolmen (Burren)</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 40 Min</span>
+          <span class="pill">⏱ 30 Min</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">Portalgrab aus 4200 v.Chr. mitten in der Karst-Landschaft des Burren. &#x27;Burren&#x27; bedeutet &#x27;felsiger Ort&#x27; — bizarre Kalksteinplatten erinnern an Mondlandschaft.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Cliffs of Moher</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 50 Min</span>
+          <span class="pill">⏱ 2 h</span>
+          <span class="pill fee">€10–15</span>
+        </div>
+        <div class="stop-desc">8 km lange Steilküste, bis 214m hoch. Eines der meistbesuchten Naturwunder Irlands. O&#x27;Brien&#x27;s Tower (1835) am höchsten Punkt. Pre-booked Timed Entry empfohlen, nachmittags bestes Licht.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Adare Country House</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 15m</span>
+        </div>
+        <div class="stop-desc">Charmantes B&amp;B im malerischen Adare (UNESCO-geschützte Reetdachhäuser im Ort).</div>
+      </div>
+    </div>
+    <div class="day-totals">
+      <span>3h 20m<small>Fahrt</small></span>
+      <span>2h 50m<small>Besuch</small></span>
+      <span>≈ 6h 10m<small>Tagessumme</small></span>
+    </div>
+    <div class="bonus-box">
+      <h3>Falls Zeit übrig</h3>
+      <div class="bonus-item"><b>Doolin</b> — 5 Min von den Cliffs. Trad-Musik-Hauptstadt Irlands. Drei Pubs mit täglichen Sessions. Lunch-Stopp.</div>
+      <div class="bonus-item"><b>Bunratty Castle &amp; Folk Park</b> — 30 Min Umweg Richtung Adare. Burg + rekonstruiertes 19.-Jh.-Dorf. €17, sehr kinderfreundlich.</div>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>Cliffs of Moher mit kleinen Kindern: ABSOLUT Geländer-Seite des Pfads bleiben! Viele Bereiche ohne Sicherung. Bunratty Castle &amp; Folk Park (siehe Bonus) ist KIND-Top-Empfehlung: Dorf mit Schmied, Tieren, Cottages zum Reingehen. Alternative für Tier-Liebhaber: Aillwee Cave (Höhle + Birds of Prey Centre) im Burren.</p>
+    </div>
+    <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Adare)</h3>
+    <div class="restaurants">
+      <div class="restaurant">
+        <div class="rest-head">1826 Adare <span class="rating">4.6★</span></div>
+        <div class="rest-kind">Fine Dining</div>
+        <div class="rest-note">Im historischen Cottage. Wechselnde Karte. Braised Short Rib. Nur Do–So abends.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Pat Collins Bar <span class="rating">4.6★</span></div>
+        <div class="rest-kind">Pub</div>
+        <div class="rest-note">Beste Irish Stew laut Gästen. Live-Musik. Im Zentrum.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Aunty Lena&#x27;s <span class="rating">4.4★</span></div>
+        <div class="rest-kind">Gastropub</div>
+        <div class="rest-note">Pub of the Year 2023. Sirloin Steak. Live-Musik.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">The Arches Restaurant <span class="rating">4.8★</span></div>
+        <div class="rest-kind">Family</div>
+        <div class="rest-note">Familiärer Charme, faire Preise. Bangers &amp; Mash. Gluten-frei verfügbar.</div>
+      </div>
+    </div>
+    <a class="nav-button" href="https://www.google.com/maps/dir/?api=1&origin=Menlo%20Park%20Hotel&origin_place_id=ChIJ_w3mFpWWW0gRAgV-t6-4Gt0&destination=Adare%20Country%20House&destination_place_id=ChIJmzN_LxJGW0gR7MXf50uqYTA&waypoints=Dunguaire%20Castle%7CBurren%20National%20Park%7CCliffs%20of%20Moher&waypoint_place_ids=ChIJBdUB_SFCW0gRG2PsXakarho%7CChIJVVVVVRl1W0gRqPJStIwKqzY%7CChIJ84G4C68BW0gR5sC4SJBGOig&travelmode=driving">► Navigation in Google Maps öffnen</a>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+<article class="day-card" id="day-11">
+  <div class="day-header">
+    <h2>Tag 11 — Adare → Killarney via Dingle</h2>
+    <div class="day-meta">Do 5. Juni · Adare → Slea Head Drive → (Conor Pass) → Killarney · <b>Hotel:</b> The Birches Killarney (2 Nächte)</div>
+    <div class="long-flag">LANGER TAG — früh starten</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Anspruchsvoller Tag. Slea Head Drive ist eine 50-km-Schleife um die Spitze der Dingle-Halbinsel — eine der spektakulärsten Küstenstraßen Irlands. Conor Pass ist eine schmale Single-Lane-Straße über die Berge (6ft Breitenlimit). Empfehlung: nur ein Element wählen — Slea Head oder Conor Pass.</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Dingle Stadt</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 30m</span>
+          <span class="pill">⏱ 1 h</span>
+        </div>
+        <div class="stop-desc">Bunte Hafenstadt am westlichsten Punkt der Halbinsel. Bekannt durch Delfin Fungie (verschwunden 2020). Murphy&#x27;s Ice Cream (Geheimtipp). Optional: Dingle Oceanworld Aquarium.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Slea Head Drive</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 5 Min</span>
+          <span class="pill">⏱ 3 h</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">50-km-Küstenschleife im Uhrzeigersinn. Schmale Straßen. Stopps: Dunbeg Fort (eisenzeitliches Klippenfort), Beehive Huts (bienenstockförmige Steinhütten, 1500 J. alt), Coumeenoole Beach.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Conor Pass (optional)</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 30 Min</span>
+          <span class="pill">⏱ 1 h</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">456m Bergpass über die Brandon Mountains, kurvenreiche Single-Lane. Bei klarem Wetter spektakulär. Bei Nebel: Hauptstraße N86 nehmen. Nicht für Wohnmobile (6ft Breitenlimit).</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">The Birches Killarney</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 15m</span>
+        </div>
+        <div class="stop-desc">Zentrale Lage im Ort, kurzer Walk zu Pubs.</div>
+      </div>
+    </div>
+    <div class="day-totals">
+      <span>3h 20m<small>Fahrt</small></span>
+      <span>5 h<small>Besuch</small></span>
+      <span>≈ 8h 20m<small>Tagessumme</small></span>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>Slea Head sehr lang im Auto — UNBEDINGT Pausen am Coumeenoole Beach (kleiner Sandstrand mitten auf der Route, perfekt zum Auspowern) und Dunmore Head einlegen. Dingle Oceanworld Aquarium am Hafen ist kind-toptauglich (Pinguine, Haie, €15). Conor Pass mit Kleinkind eher skippen — schmal, kurvig, lange Strecke.</p>
+    </div>
+    <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Killarney)</h3>
+    <div class="restaurants">
+      <div class="restaurant">
+        <div class="rest-head">Bricín Boxty House <span class="rating">4.8★</span></div>
+        <div class="rest-kind">Irish</div>
+        <div class="rest-note">Berühmt für Boxty (Kartoffel-Pfannkuchen). Lamm-Curry-Boxty. Reservieren!</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">J.M. Reidy&#x27;s <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Trad. Pub</div>
+        <div class="rest-note">Historischer Pub mit vielen Nischen. Toastie &amp; Soup tagsüber.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Cronins Restaurant <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Restaurant</div>
+        <div class="rest-note">Kleines elegantes Restaurant. Shepherd&#x27;s Pie, Lamb Shank.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Harrow Killarney <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Restaurant</div>
+        <div class="rest-note">Gehobene Küche. Seared Scallops, Lamb Wellington.</div>
+      </div>
+    </div>
+    <a class="nav-button" href="https://www.google.com/maps/dir/?api=1&origin=Adare%20Country%20House&origin_place_id=ChIJmzN_LxJGW0gR7MXf50uqYTA&destination=The%20Birches%20Killarney&destination_place_id=ChIJxSQot1U9RUgR4tXpcN8aoQ4&waypoints=Slea%20Head%20Drive%7CConor%20Pass&waypoint_place_ids=EihTbGVhIEhlYWQgRHIsIERpbmdsZSwgQ28uIEtlcnJ5LCBJcmVsYW5kIi4qLAoUChIJHe39LtHlT0gRc6Q6RV-7r-0SFAoSCZFJnCTH-09IEQDMMZepxwAK%7CChIJx_W5iBNTRUgRJ1duGLa9CQ0&travelmode=driving">► Navigation in Google Maps öffnen</a>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+<article class="day-card" id="day-12">
+  <div class="day-header">
+    <h2>Tag 12 — Ring of Kerry</h2>
+    <div class="day-meta">Fr 6. Juni · Killarney → Ross Castle → Ladies View → Ring of Kerry → Killarney · <b>Hotel:</b> The Birches Killarney</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Klassischer Tag: die 180-km-Ringstraße um die Iveragh-Halbinsel. Im Uhrzeigersinn fahren (gegen den Strom der Reisebusse, die alle linksherum fahren). Ross Castle als Aufwärm-Stopp am Vormittag, dann Killarney National Park (Ladies View, Molls Gap), dann der Rest der Ringschleife.</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Ross Castle</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 10 Min</span>
+          <span class="pill">⏱ 1 h</span>
+          <span class="pill fee">frei Gelände, €5 Keep</span>
+        </div>
+        <div class="stop-desc">Mittelalterlicher Tower-House (15. Jh.) am Lough Leane. Geführte Tower-Tour. Boots-Touren zu Innisfallen Island (€15).</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Ladies&#x27; View / Molls Gap</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 25 Min</span>
+          <span class="pill">⏱ 30 Min</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">Aussichtspunkte im Killarney National Park. &#x27;Ladies View&#x27; nach Queen Victoria&#x27;s Hofdamen benannt. Café mit Rooftop-Terrasse.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Sneem / Waterville / Cahersiveen</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 30m</span>
+          <span class="pill">⏱ 3 h</span>
+        </div>
+        <div class="stop-desc">Klassische Ring-of-Kerry-Stopps. Sneem = bunte Häuser. Waterville = Charlie Chaplin verbrachte Sommerferien hier (Statue). Cahersiveen mit Burgruine.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Rückkehr Killarney</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 15m</span>
+        </div>
+        <div class="stop-desc">Gesamtreise ~6h mit Stopps. Lunch unterwegs einplanen.</div>
+      </div>
+    </div>
+    <div class="day-totals">
+      <span>3h 20m<small>Fahrt</small></span>
+      <span>4h 30m<small>Besuch</small></span>
+      <span>≈ 7h 50m<small>Tagessumme</small></span>
+    </div>
+    <div class="bonus-box">
+      <h3>Falls Zeit übrig</h3>
+      <div class="bonus-item"><b>Muckross House &amp; Traditional Farms</b> — 10 Min vom Birches. Viktorianisches Herrenhaus + traditionelle Bauernhöfe-Rekonstruktion mit Tieren und Schmiede. €15.</div>
+      <div class="bonus-item"><b>Kerry Bog Village Museum</b> — Zwischen Killarney und Glenbeigh, am Ring. Rekonstruiertes Torfmoor-Dorf mit irischen Wolfshunden und Eseln. €8.</div>
+      <div class="bonus-item"><b>Skellig Ring</b> — Verlängerung Richtung Portmagee. Star-Wars-Fans: Skellig Michael (Boot nötig, vorab buchen).</div>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>Muckross Traditional Farms (siehe Bonus) ist TOP für Kind — Bauernhof-Tiere, Schmied bei der Arbeit, Spielplatz, Cottages zum Reingehen. Sehr empfehlenswert. Kerry Bog Village hat Wolfshunde und Esel. Boot von Ross Castle zu Innisfallen Island als Abenteuer. Ring of Kerry kann ohne Stopps langweilig werden — Plan B: Muckross-Tag statt Ring of Kerry, falls Kind keine Langfahrten mag.</p>
+    </div>
+    <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Killarney)</h3>
+    <div class="restaurants">
+      <div class="restaurant">
+        <div class="rest-head">Bricín Boxty House <span class="rating">4.8★</span></div>
+        <div class="rest-kind">Irish</div>
+        <div class="rest-note">Berühmt für Boxty (Kartoffel-Pfannkuchen). Lamm-Curry-Boxty. Reservieren!</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">J.M. Reidy&#x27;s <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Trad. Pub</div>
+        <div class="rest-note">Historischer Pub mit vielen Nischen. Toastie &amp; Soup tagsüber.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Cronins Restaurant <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Restaurant</div>
+        <div class="rest-note">Kleines elegantes Restaurant. Shepherd&#x27;s Pie, Lamb Shank.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Harrow Killarney <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Restaurant</div>
+        <div class="rest-note">Gehobene Küche. Seared Scallops, Lamb Wellington.</div>
+      </div>
+    </div>
+    <a class="nav-button" href="https://www.google.com/maps/dir/?api=1&origin=The%20Birches%20Killarney&origin_place_id=ChIJxSQot1U9RUgR4tXpcN8aoQ4&destination=The%20Birches%20Killarney&destination_place_id=ChIJxSQot1U9RUgR4tXpcN8aoQ4&waypoints=Ross%20Castle%7CLadies%27%20View%7CRing%20of%20Kerry&waypoint_place_ids=ChIJ25JR0AQ8RUgRZoZO0KdIzVs%7CChIJyz747yIVRUgRojOLD9YIK1g%7CChIJtV7rr94_RUgR9URTj-xR038&travelmode=driving">► Navigation in Google Maps öffnen</a>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+<article class="day-card" id="day-13">
+  <div class="day-header">
+    <h2>Tag 13 — Killarney → Cork via Beara</h2>
+    <div class="day-meta">Sa 7. Juni · Killarney → Healy Pass → (Glengarriff) → Cork · <b>Hotel:</b> Clayton Hotel Cork City (1 Nacht)</div>
+    <div class="long-flag">LANGER TAG — früh starten</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Beara-Halbinsel ist weniger touristisch als Ring of Kerry — wilder, einsamer. Healy Pass ist eine schmale Bergstraße über die Caha Mountains mit dramatischen Aussichten. Empfehlung: nicht die volle Beara-Schleife (zu lang), sondern Healy Pass + Glengarriff für Mittagspause, dann direkt Cork.</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Kenmare</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 35 Min</span>
+          <span class="pill">⏱ 30 Min</span>
+        </div>
+        <div class="stop-desc">Charmante kleine Stadt zwischen Kerry und Beara. Coffee Stop, bunte Hauptstraße. Star Wars: &#x27;Henry Street&#x27; Eis-Café.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Healy Pass (R574)</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 40 Min</span>
+          <span class="pill">⏱ 1 h</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">Z-förmige Single-Lane-Bergstraße (337m) zwischen Kerry und Cork. Erbaut während der Hungersnot. Spektakulärer Blick auf Glanmore Lake und Glengarriff Bay.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Glengarriff Lunch</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 30 Min</span>
+          <span class="pill">⏱ 1 h</span>
+        </div>
+        <div class="stop-desc">Küstendorf am Bantry Bay. Schöne Bay-Aussicht. Optional: Bootstour zu Garinish Island (italienische Gärten, €15).</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Clayton Hotel Cork City</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 30m</span>
+        </div>
+        <div class="stop-desc">Zentrales Hotel mit eigenem Parking. Spa, Pool. Walking distance zu Restaurants.</div>
+      </div>
+    </div>
+    <div class="day-totals">
+      <span>3h 15m<small>Fahrt</small></span>
+      <span>2h 30m<small>Besuch</small></span>
+      <span>≈ 5h 45m<small>Tagessumme</small></span>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>Healy Pass: schmal, kurvig — kann Kind übel werden. Tablet/Hörspiel im Auto. Bei Glengarriff: Bamboo Park (kleine subtropische Garten-Anlage, sehr gemütlich für Kinder, €5). Falls Tag flexibel: anstelle Beara-Route über N22 direkt nach Cork und Nachmittag dort nutzen — Fota Wildlife Park (siehe Tag 14 Bonus) wäre ein Highlight, aber 30 Min außerhalb Cork.</p>
+    </div>
+    <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Cork)</h3>
+    <div class="restaurants">
+      <div class="restaurant">
+        <div class="rest-head">Market Lane <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Irish</div>
+        <div class="rest-note">Cork-Klassiker. Bacon &amp; Cabbage. Abends ausgebucht — eher Lunch.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">The SpitJack <span class="rating">4.6★</span></div>
+        <div class="rest-kind">Brunch/Dinner</div>
+        <div class="rest-note">Bekannt für Rotisserie. Brunch hervorragend. Abends Steaks.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">The Glass Curtain <span class="rating">4.9★</span></div>
+        <div class="rest-kind">Fine Dining</div>
+        <div class="rest-note">Beste Bewertung Cork. Tasting Menu. Reservierung weit im Voraus.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Cornstore <span class="rating">4.4★</span></div>
+        <div class="rest-kind">Gastropub</div>
+        <div class="rest-note">Steak House. Pan-Seared Salmon, Duck Legs. Outdoor-Plätze.</div>
+      </div>
+    </div>
+    <a class="nav-button" href="https://www.google.com/maps/dir/?api=1&origin=The%20Birches%20Killarney&origin_place_id=ChIJxSQot1U9RUgR4tXpcN8aoQ4&destination=Clayton%20Hotel%20Cork%20City&destination_place_id=ChIJH1CFQw-QREgRDWQQ7a29dRk&waypoints=Healy%20Pass&waypoint_place_ids=ChIJ3z_boAx6RUgRvXtx9fiZLJc&travelmode=driving">► Navigation in Google Maps öffnen</a>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+<article class="day-card" id="day-14">
+  <div class="day-header">
+    <h2>Tag 14 — Cork → Waterford via Blarney + Cashel</h2>
+    <div class="day-meta">So 8. Juni · Cork → Blarney Castle → Rock of Cashel → Waterford · <b>Hotel:</b> Waterford Marina Hotel (1 Nacht)</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Zwei Top-Sights an einem Tag. Blarney Castle früh (Schlangen am Blarney Stone können im Sommer 1 h+ sein). Rock of Cashel zur Mittagszeit auf dem Weg — eines der ikonischsten historischen Ensembles Irlands (Kathedrale, Round Tower, Cormac&#x27;s Chapel auf einem Felsen).</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Blarney Castle &amp; Gardens</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 20 Min</span>
+          <span class="pill">⏱ 2 h</span>
+          <span class="pill fee">€24</span>
+        </div>
+        <div class="stop-desc">Mittelalterliche Burg (15. Jh.) mit dem &#x27;Blarney Stone&#x27; — wer ihn küsst, soll die &#x27;Gabe der Beredsamkeit&#x27; bekommen. Stein erreichbar nur durch Rückwärts-Hängen über 27m Höhe (Aufpasser hält). Schöne Gärten.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Rock of Cashel</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 50m</span>
+          <span class="pill">⏱ 1h 30m</span>
+          <span class="pill fee">€8 (OPW)</span>
+        </div>
+        <div class="stop-desc">Mittelalterliches Ensemble auf 60m-Kalksteinfelsen: Kathedrale (13. Jh.), Round Tower (12. Jh.), Cormac&#x27;s Chapel mit romanischen Fresken. Sitz der Könige von Munster. Audio-Guide empfohlen.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Waterford Marina Hotel</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 15m</span>
+        </div>
+        <div class="stop-desc">Am Suir-Fluss, schöner Blick. Restaurant gut bewertet. Stadtzentrum 5 Min zu Fuß.</div>
+      </div>
+    </div>
+    <div class="day-totals">
+      <span>3h 25m<small>Fahrt</small></span>
+      <span>3h 30m<small>Besuch</small></span>
+      <span>≈ 6h 55m<small>Tagessumme</small></span>
+    </div>
+    <div class="bonus-box">
+      <h3>Falls Zeit übrig</h3>
+      <div class="bonus-item"><b>Fota Wildlife Park</b> — 30 Min südlich Cork. Wildlife Park mit frei laufenden Lemuren, Giraffen, Geparden. 4.7★, €19. SEHR kinder- und tierfreundlich. Pflicht-Detour mit Kind.</div>
+      <div class="bonus-item"><b>Cobh</b> — 30 Min südlich Cork. Letzter Hafen der Titanic. Titanic Experience Museum (4.4★). Bunte Häuser am Wasser.</div>
+      <div class="bonus-item"><b>Midleton Distillery</b> — 20 Min östlich Cork. Jameson-Tour. Eher für Erwachsene.</div>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>Fota Wildlife Park (siehe Bonus) ist Tier-HIGHLIGHT des ganzen Trips — Giraffen frei umherlaufend, Lemuren auf Bäumen, Geparden ganz nahe. Plan: Fota früh anstelle von Blarney, dann Rock of Cashel auf dem Weg. Blarney Castle Gardens (ohne den Stein) sind sehr schön für Kinder (Druidengarten, Wishing Steps).</p>
+    </div>
+    <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Waterford)</h3>
+    <div class="restaurants">
+      <div class="restaurant">
+        <div class="rest-head">Momo Restaurant <span class="rating">4.8★</span></div>
+        <div class="rest-kind">Restaurant</div>
+        <div class="rest-note">Konsistent Top-Adresse in Waterford. Wechselnde Spezialitäten.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Everett&#x27;s Restaurant <span class="rating">4.8★</span></div>
+        <div class="rest-kind">Fine Dining</div>
+        <div class="rest-note">Gehobene irische Küche. Scallops, Beef Shin. Nur Di–So.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Emiliano&#x27;s Restaurant <span class="rating">4.8★</span></div>
+        <div class="rest-kind">Italian</div>
+        <div class="rest-note">Authentisch italienisch. Beste Truffle-Pasta. Alternative zu irisch.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">McLeary&#x27;s Restaurant <span class="rating">4.7★</span></div>
+        <div class="rest-kind">Irish</div>
+        <div class="rest-note">Sehr gute Fish &amp; Chips, gutes Preis-Leistung. Walk-in only.</div>
+      </div>
+    </div>
+    <a class="nav-button" href="https://www.google.com/maps/dir/?api=1&origin=Clayton%20Hotel%20Cork%20City&origin_place_id=ChIJH1CFQw-QREgRDWQQ7a29dRk&destination=Waterford%20Marina%20Hotel&destination_place_id=ChIJnxLX2JnGQkgRwyTPw29jiU0&waypoints=Blarney%20Castle%20%26%20Gardens%7CRock%20of%20Cashel&waypoint_place_ids=ChIJt0TfOD2QREgRyEeLjGPDt68%7CChIJ9UGKcN7LXEgR3YC2sSpHPsw&travelmode=driving">► Navigation in Google Maps öffnen</a>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+<article class="day-card" id="day-15">
+  <div class="day-header">
+    <h2>Tag 15 — Waterford → Wicklow via Kilkenny</h2>
+    <div class="day-meta">Mo 9. Juni · Waterford → Kilkenny Castle → Arklow · <b>Hotel:</b> Arklow Bay Hotel (2 Nächte)</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Entspannter Tag. Kilkenny ist eine mittelalterliche Stadt mit Kopfsteinpflaster, der &#x27;Medieval Mile&#x27; und einem der schönsten erhaltenen Schlösser Irlands. Stadtbummel inkl. St. Canice&#x27;s Cathedral und Smithwick&#x27;s Experience optional.</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Kilkenny Castle &amp; Stadt</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 50 Min</span>
+          <span class="pill">⏱ 3 h</span>
+          <span class="pill fee">€8 Castle</span>
+        </div>
+        <div class="stop-desc">Normannische Burg (12. Jh.) der Butler-Familie. Schön restauriert mit Chinese Drawing Room (handbemalte Tapeten). Stadtbummel: Kilkenny Mile mit Tudor-Häusern, Pubs, St. Canice&#x27;s Cathedral mit Round Tower.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Lunch in Kilkenny</div>
+        <div class="stop-meta">
+          <span class="pill">⏱ 1 h</span>
+        </div>
+        <div class="stop-desc">Zahlreiche Pubs in der Altstadt. Try Kytelers Inn (1324, älteste Hexen-Geschichte Irlands).</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Arklow Bay Hotel</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 45m</span>
+        </div>
+        <div class="stop-desc">Hotel an der Küste mit Spa und Pool. Familienfreundlich.</div>
+      </div>
+    </div>
+    <div class="day-totals">
+      <span>2h 35m<small>Fahrt</small></span>
+      <span>4 h<small>Besuch</small></span>
+      <span>≈ 6h 35m<small>Tagessumme</small></span>
+    </div>
+    <div class="bonus-box">
+      <h3>Falls Zeit übrig</h3>
+      <div class="bonus-item"><b>Jerpoint Abbey</b> — 20 Min südlich Kilkenny. Zisterzienser-Kloster (12. Jh.) mit beeindruckenden Skulpturen am Kreuzgang. €5, ruhig.</div>
+      <div class="bonus-item"><b>Dunbrody Famine Ship (Waterford-Region)</b> — 30 Min südlich Waterford. Replik eines Auswanderer-Schiffs. Interaktiv, gut für Kinder.</div>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>Kilkenny Castle hat einen großen Park (kostenlos) mit Spielplatz und Picknick-Bereich. Kinder dürfen sich in der Krypta von St. Canice&#x27;s Cathedral austoben. Dunbrody Famine Ship (siehe Bonus) ist interaktiv und gut erklärt — Schauspieler in Rollen. Falls Auto-Tag zu lang: nur Kilkenny Castle Park + Spielplatz.</p>
+    </div>
+    <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Arklow)</h3>
+    <div class="restaurants">
+      <div class="restaurant">
+        <div class="rest-head">Sparrows Nest <span class="rating">4.8★</span></div>
+        <div class="rest-kind">Restaurant</div>
+        <div class="rest-note">In Wicklow Town (15 Min). Garlic Mushrooms. Nur Do–So.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Tapau House <span class="rating">4.8★</span></div>
+        <div class="rest-kind">Asian Fusion</div>
+        <div class="rest-note">Versteckter Geheimtipp. Kimchi Beef Fried Rice.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Grizzly x Napkin <span class="rating">4.9★</span></div>
+        <div class="rest-kind">Pizza/Burger</div>
+        <div class="rest-note">Top-bewertete Pizza/Burger. Veggie/Vegan-Optionen. Nur Do–So abends.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Taste of Italy <span class="rating">4.9★</span></div>
+        <div class="rest-kind">Italian Café</div>
+        <div class="rest-note">Sehr kleines familiäres Café. Hausgemachte Pasta. Nur tagsüber.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">The Old Ship Inn <span class="rating">4.6★</span></div>
+        <div class="rest-kind">Pub/Restaurant</div>
+        <div class="rest-note">Klassischer Pub. Roast Beef, Fish &amp; Chips. Live-Bands am Wochenende.</div>
+      </div>
+    </div>
+    <a class="nav-button" href="https://www.google.com/maps/dir/?api=1&origin=Waterford%20Marina%20Hotel&origin_place_id=ChIJnxLX2JnGQkgRwyTPw29jiU0&destination=Arklow%20Bay%20Hotel&destination_place_id=ChIJL4J6qnMjWUgROlPszvPNfBY&waypoints=Kilkenny%20Castle&waypoint_place_ids=ChIJ8Rdbq58wXUgRSIkh8uhr8sg&travelmode=driving">► Navigation in Google Maps öffnen</a>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+<article class="day-card" id="day-16">
+  <div class="day-header">
+    <h2>Tag 16 — Glendalough + Wicklow Mountains</h2>
+    <div class="day-meta">Di 10. Juni · Arklow → Glendalough → Sally Gap → Arklow · <b>Hotel:</b> Arklow Bay Hotel</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Krönung des Trips: Glendalough = 6.-Jh.-Mönchsstadt in einem Tal mit zwei Seen, Round Tower, Kirchenruinen. Wanderung am See (1,5h easy) oder Spinc-Trail (3h harder, panoramisch). Sally Gap am Nachmittag = Single-Lane-Bergstraße durch die Wicklow Mountains.</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Glendalough Monastic City</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1 h</span>
+          <span class="pill">⏱ 1h 30m</span>
+          <span class="pill fee">frei Site, €5 Parking</span>
+        </div>
+        <div class="stop-desc">Klostersiedlung gegründet 6. Jh. von St. Kevin im &#x27;Tal der zwei Seen&#x27;. Round Tower (30m, 11. Jh.), Cathedral, St. Kevin&#x27;s Kitchen (Kirche). Upper und Lower Lake.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Glendalough Lakes Walk</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 5 Min</span>
+          <span class="pill">⏱ 1h 30m</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">1,5h-Loop am Upper Lake, leicht und kinderwagentauglich. Wildtiere: Hirsche im Tal.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Sally Gap / Wicklow Gap</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 30 Min</span>
+          <span class="pill">⏱ 2 h</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">Schmal, kurvig, kein Vorbeikommen — aber atemberaubend. Lough Tay (&#x27;Guinness Lake&#x27;) Viewpoint. Drehort für Vikings, P.S. I Love You. Schmal und langsam fahren.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Rückkehr Arklow</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 45 Min</span>
+        </div>
+        <div class="stop-desc">Hotel-Pool gut nach dem Wandertag.</div>
+      </div>
+    </div>
+    <div class="day-totals">
+      <span>2h 20m<small>Fahrt</small></span>
+      <span>5 h<small>Besuch</small></span>
+      <span>≈ 7h 20m<small>Tagessumme</small></span>
+    </div>
+    <div class="bonus-box">
+      <h3>Falls Zeit übrig</h3>
+      <div class="bonus-item"><b>Powerscourt House &amp; Gardens</b> — 30 Min nördlich Glendalough. Eine der schönsten Gartenanlagen Europas. €13.50.</div>
+      <div class="bonus-item"><b>Powerscourt Waterfall</b> — 121m hoher Wasserfall, höchster Irlands. €7, kurzer Walk.</div>
+      <div class="bonus-item"><b>Avoca Village</b> — 10 Min von Arklow. Pittoreskes Dorf, Drehort für BBC-Serie &#x27;Ballykissangel&#x27;. Avoca Handweavers (älteste Tuchmühle Irlands).</div>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>Glendalough Lower Lake Walk = kinderwagentauglich, sehr schön. Wildtiere sind ein Highlight (Hirsche oft sichtbar). Powerscourt (siehe Bonus) hat &#x27;Pet Cemetery&#x27;, Japanese Garden, Pepperpot Tower — auch ohne Kinder schon Märchen-Land. Sally Gap mit kleinem Kind nur bei klarem Wetter (kurvig, eng).</p>
+    </div>
+    <h3 style="margin-top: 16px;">Restaurant-Empfehlungen (Arklow)</h3>
+    <div class="restaurants">
+      <div class="restaurant">
+        <div class="rest-head">Sparrows Nest <span class="rating">4.8★</span></div>
+        <div class="rest-kind">Restaurant</div>
+        <div class="rest-note">In Wicklow Town (15 Min). Garlic Mushrooms. Nur Do–So.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Tapau House <span class="rating">4.8★</span></div>
+        <div class="rest-kind">Asian Fusion</div>
+        <div class="rest-note">Versteckter Geheimtipp. Kimchi Beef Fried Rice.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Grizzly x Napkin <span class="rating">4.9★</span></div>
+        <div class="rest-kind">Pizza/Burger</div>
+        <div class="rest-note">Top-bewertete Pizza/Burger. Veggie/Vegan-Optionen. Nur Do–So abends.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">Taste of Italy <span class="rating">4.9★</span></div>
+        <div class="rest-kind">Italian Café</div>
+        <div class="rest-note">Sehr kleines familiäres Café. Hausgemachte Pasta. Nur tagsüber.</div>
+      </div>
+      <div class="restaurant">
+        <div class="rest-head">The Old Ship Inn <span class="rating">4.6★</span></div>
+        <div class="rest-kind">Pub/Restaurant</div>
+        <div class="rest-note">Klassischer Pub. Roast Beef, Fish &amp; Chips. Live-Bands am Wochenende.</div>
+      </div>
+    </div>
+    <a class="nav-button" href="https://www.google.com/maps/dir/?api=1&origin=Arklow%20Bay%20Hotel&origin_place_id=ChIJL4J6qnMjWUgROlPszvPNfBY&destination=Arklow%20Bay%20Hotel&destination_place_id=ChIJL4J6qnMjWUgROlPszvPNfBY&waypoints=Glendalough%20Cathedral%7CWicklow%20Mountains%20National%20Park&waypoint_place_ids=ChIJFxLcsMuXZ0gRV-Gogyek8T0%7CChIJ84dcGMyXZ0gRNdEwDPRiE2g&travelmode=driving">► Navigation in Google Maps öffnen</a>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+<article class="day-card" id="day-17">
+  <div class="day-header">
+    <h2>Tag 17 — Wicklow → Dublin Airport</h2>
+    <div class="day-meta">Mi 11. Juni · Arklow → Dublin Airport (~1,5 h reine Fahrt)</div>
+  </div>
+  <div class="day-body">
+    <p class="day-intro">Rückreisetag. Plane mindestens 3 h zwischen Hotel-Auschecken und Flug. Mietwagen-Rückgabe braucht 30–45 Min. Bei Bedarf: kurzer Stopp in Dún Laoghaire (Hafenstadt südlich Dublin) oder Bray Head für letzten Küsten-Walk.</p>
+    <h3>Tagesablauf</h3>
+    <div class="stops">
+      <div class="stop-card">
+        <div class="stop-name">Hotel Check-out</div>
+        <div class="stop-meta">
+        </div>
+        <div class="stop-desc">Check-out meist bis 11:00. Tank vorher voll machen.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Optional: Dún Laoghaire / Bray</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 1h 10m</span>
+          <span class="pill">⏱ 1 h</span>
+          <span class="pill fee">frei</span>
+        </div>
+        <div class="stop-desc">Dún Laoghaire = georgianischer Hafen mit langem Pier (East Pier Walk). Bray = viktorianisches Seebad mit Promenade. Beide ~25 Min vor Flughafen.</div>
+      </div>
+      <div class="stop-card">
+        <div class="stop-name">Dublin Airport</div>
+        <div class="stop-meta">
+          <span class="pill">🚗 25 Min</span>
+          <span class="pill">⏱ 3 h</span>
+        </div>
+        <div class="stop-desc">Auto-Rückgabe-Schalter in Höhe 1. Plane 2,5–3 h vor Abflug ein.</div>
+      </div>
+    </div>
+    <div class="day-totals">
+      <span>1h 35m<small>Fahrt</small></span>
+      <span>4 h<small>Besuch</small></span>
+      <span>≈ 5h 35m<small>Tagessumme</small></span>
+    </div>
+    <div class="kid-box">
+      <h3>Mit Kind (3–4 J.)</h3>
+      <p>Falls Zeit: Killruddery House (10 Min südlich Bray) — historisches Haus mit Spielwiese, Gartenlabyrinth, Wasserspielen. Auch nur Bray Strand reicht für die letzten Stunden. Nicht zu viel einplanen — Stress am Flughafen vermeiden.</p>
+    </div>
+    <a class="nav-button" href="https://www.google.com/maps/dir/?api=1&origin=Arklow%20Bay%20Hotel&origin_place_id=ChIJL4J6qnMjWUgROlPszvPNfBY&destination=Dublin%20Airport&destination_place_id=ChIJLxmTab4RZ0gRVfMlt7UbElU&travelmode=driving">► Navigation in Google Maps öffnen</a>
+    <a class="back-to-top" href="#toc">↑ Zurück zum Inhaltsverzeichnis</a>
+  </div>
+</article>
+</div>
+</body></html>
