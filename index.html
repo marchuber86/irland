@@ -138,12 +138,17 @@ p { margin-bottom: 8px; }
 }
 .stop-card .stop-name { font-weight: 600; color: #1a4d2e; font-size: 14px; margin-bottom: 4px; }
 .stop-card .stop-name a.wiki-link {
-  color: #1a4d2e;
+  color: #1a73e8;
   text-decoration: underline;
-  text-decoration-color: rgba(26,77,46,0.4);
-  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
-.stop-card .stop-name a.wiki-link:active { color: #1a73e8; }
+.stop-card .stop-name a.wiki-link::after {
+  content: " ↗";
+  font-size: 11px;
+  opacity: 0.7;
+}
+.stop-card .stop-name a.wiki-link:active { color: #0d47a1; }
 .stop-card .stop-meta {
   display: flex;
   flex-wrap: wrap;
@@ -206,12 +211,17 @@ p { margin-bottom: 8px; }
 .restaurant:last-child { border-bottom: none; }
 .rest-head { font-weight: 600; color: #333; font-size: 14px; }
 .rest-head a.restaurant-link {
-  color: #333;
+  color: #1a73e8;
   text-decoration: underline;
-  text-decoration-color: rgba(51,51,51,0.3);
-  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
-.rest-head a.restaurant-link:active { color: #1a73e8; }
+.rest-head a.restaurant-link::after {
+  content: " ↗";
+  font-size: 11px;
+  opacity: 0.7;
+}
+.rest-head a.restaurant-link:active { color: #0d47a1; }
 .rest-head .rating {
   color: #b8860b;
   font-size: 12px;
@@ -348,8 +358,8 @@ p { margin-bottom: 8px; }
       popupAnchor: [0, -8]
     });
     const m = L.marker([s.lat, s.lon], { icon: icon }).addTo(map);
-    const wikiUrl = `https://de.wikipedia.org/wiki/Special:Search?go=Go&search=${encodeURIComponent(s.name)}`;
-    m.bindPopup(`<b>${s.name}</b><br><span class="popup-day">Tag ${s.day}</span><br><a href="#day-${s.day}">→ Zum Tag ${s.day}</a><br><a href="${wikiUrl}" target="_blank" rel="noopener">📖 Wikipedia</a>`);
+    const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(s.name + ' Irland')}`;
+    m.bindPopup(`<b>${s.name}</b><br><span class="popup-day">Tag ${s.day}</span><br><a href="#day-${s.day}">→ Zum Tag ${s.day}</a><br><a href="${googleUrl}" target="_blank" rel="noopener">🔍 Bei Google öffnen</a>`);
   }
 
   // Draw each day's route polyline through all its stops, in its own color
@@ -640,7 +650,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Trinity%20College%20%26%20Book%20of%20Kells" target="_blank" rel="noopener" class="wiki-link">Trinity College &amp; Book of Kells</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Trinity%20College%20%26%20Book%20of%20Kells%20Irland" target="_blank" rel="noopener" class="wiki-link">Trinity College &amp; Book of Kells</a></div>
         <div class="stop-meta">
           <span class="pill">⏱ 1h 30m</span>
           <span class="pill fee">€18–25</span>
@@ -648,7 +658,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Älteste Universität Irlands (1592). Long Room der Bibliothek mit 200.000 Büchern war Vorlage für Hogwarts. Book of Kells = mittelalterliche illuminierte Evangelienhandschrift (~800 n.Chr.). Tickets unter tcd.ie.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=St.%20Stephen%27s%20Green%20/%20Merrion%20Square" target="_blank" rel="noopener" class="wiki-link">St. Stephen&#x27;s Green / Merrion Square</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=St.%20Stephen%27s%20Green%20/%20Merrion%20Square%20Irland" target="_blank" rel="noopener" class="wiki-link">St. Stephen&#x27;s Green / Merrion Square</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 15 Min</span>
           <span class="pill">⏱ 1 h</span>
@@ -657,7 +667,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Georgianischer Stadtpark mit Teich und Skulpturen. Merrion Square hat farbige Türen, Oscar-Wilde-Statue, georgianische Häuser.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Dublin%20Castle%20/%20National%20Museum%20/%20Guinness%20Storehouse" target="_blank" rel="noopener" class="wiki-link">Optional: Dublin Castle / National Museum / Guinness Storehouse</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Dublin%20Castle%20/%20National%20Museum%20/%20Guinness%20Storehouse%20Irland" target="_blank" rel="noopener" class="wiki-link">Optional: Dublin Castle / National Museum / Guinness Storehouse</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 15 Min</span>
           <span class="pill">⏱ 2 h</span>
@@ -706,7 +716,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Clonmacnoise%20Monastic%20Site" target="_blank" rel="noopener" class="wiki-link">Clonmacnoise Monastic Site</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Clonmacnoise%20Monastic%20Site%20Irland" target="_blank" rel="noopener" class="wiki-link">Clonmacnoise Monastic Site</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1h 45m</span>
           <span class="pill">⏱ 1h 30m</span>
@@ -715,7 +725,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Klostersiedlung gegründet 544 n.Chr. von St. Ciarán am Shannon. Round Tower, mehrere Kirchen-Ruinen, Original-Hochkreuze im Museum. Video-Intro empfohlen.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Trim%20Castle" target="_blank" rel="noopener" class="wiki-link">Trim Castle</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Trim%20Castle%20Irland" target="_blank" rel="noopener" class="wiki-link">Trim Castle</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1h 15m</span>
           <span class="pill">⏱ 1h 30m</span>
@@ -782,7 +792,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Monasterboice" target="_blank" rel="noopener" class="wiki-link">Monasterboice</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Monasterboice%20Irland" target="_blank" rel="noopener" class="wiki-link">Monasterboice</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1 h</span>
           <span class="pill">⏱ 30 Min</span>
@@ -798,7 +808,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Hotel an der Great Victoria Street, sehr zentral. Check-in 15:00. Restaurants und Pubs in Gehweite.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Titanic%20Quarter" target="_blank" rel="noopener" class="wiki-link">Optional Titanic Quarter</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Titanic%20Quarter%20Irland" target="_blank" rel="noopener" class="wiki-link">Optional Titanic Quarter</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 10 Min</span>
           <span class="pill">⏱ 2 h</span>
@@ -859,7 +869,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Carrick-a-Rede%20Rope%20Bridge" target="_blank" rel="noopener" class="wiki-link">Carrick-a-Rede Rope Bridge</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Carrick-a-Rede%20Rope%20Bridge%20Irland" target="_blank" rel="noopener" class="wiki-link">Carrick-a-Rede Rope Bridge</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1h 45m</span>
           <span class="pill">⏱ 1h 15m</span>
@@ -868,7 +878,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Hängebrücke aus Tauen zwischen Festland und kleiner Felseninsel (Lachsfischer-Geschichte). 30m über dem Meer. Bei starkem Wind geschlossen. Timed Entry buchen. Mit Kleinkind heikel.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Giant%27s%20Causeway" target="_blank" rel="noopener" class="wiki-link">Giant&#x27;s Causeway</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Giant%27s%20Causeway%20Irland" target="_blank" rel="noopener" class="wiki-link">Giant&#x27;s Causeway</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 30 Min</span>
           <span class="pill">⏱ 2 h</span>
@@ -877,7 +887,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">40.000 sechseckige Basaltsäulen, durch Lava-Abkühlung entstanden (60 Mio. Jahre). Legende: Riese Finn McCool baute Damm nach Schottland. Walk frei. Shuttle £1.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Dunluce%20Castle" target="_blank" rel="noopener" class="wiki-link">Dunluce Castle</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Dunluce%20Castle%20Irland" target="_blank" rel="noopener" class="wiki-link">Dunluce Castle</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 15 Min</span>
           <span class="pill">⏱ 45 Min</span>
@@ -939,7 +949,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Glenveagh%20Visitor%20Centre" target="_blank" rel="noopener" class="wiki-link">Glenveagh Visitor Centre</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Glenveagh%20Visitor%20Centre%20Irland" target="_blank" rel="noopener" class="wiki-link">Glenveagh Visitor Centre</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 30 Min</span>
           <span class="pill">⏱ 30 Min</span>
@@ -948,7 +958,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Eingang zum 170 km² großen Nationalpark — Berge, Seen, Heideland, irische Rothirsche. Café, Toiletten, Shop. Shuttle-Tickets hier.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Glenveagh%20Castle%20%26%20Gardens" target="_blank" rel="noopener" class="wiki-link">Glenveagh Castle &amp; Gardens</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Glenveagh%20Castle%20%26%20Gardens%20Irland" target="_blank" rel="noopener" class="wiki-link">Glenveagh Castle &amp; Gardens</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 5 Min</span>
           <span class="pill">⏱ 2h 30m</span>
@@ -957,7 +967,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Viktorianisches Schloss (1870) am Ufer des Lough Veagh. Bekannt durch dramatische Geschichte des amerikanischen Besitzers. Wunderschöne Gärten mit subtropischen Pflanzen.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Lake%20Walk%20Loop" target="_blank" rel="noopener" class="wiki-link">Optional: Lake Walk Loop</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Lake%20Walk%20Loop%20Irland" target="_blank" rel="noopener" class="wiki-link">Optional: Lake Walk Loop</a></div>
         <div class="stop-meta">
           <span class="pill">⏱ 1h 30m</span>
           <span class="pill fee">frei</span>
@@ -1023,7 +1033,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Grian%C3%A1n%20Of%20Aileach" target="_blank" rel="noopener" class="wiki-link">Grianán Of Aileach</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Grian%C3%A1n%20Of%20Aileach%20Irland" target="_blank" rel="noopener" class="wiki-link">Grianán Of Aileach</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 25 Min</span>
           <span class="pill">⏱ 30 Min</span>
@@ -1032,7 +1042,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Steinerne Ringfestung auf 250m Höhe aus dem 5.–7. Jh. Berühmt für 360°-Panorama über fünf Counties. Kurzer Fußweg vom Parkplatz.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Slieve%20League%20Cliffs" target="_blank" rel="noopener" class="wiki-link">Slieve League Cliffs</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Slieve%20League%20Cliffs%20Irland" target="_blank" rel="noopener" class="wiki-link">Slieve League Cliffs</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 2h 10m</span>
           <span class="pill">⏱ 2 h</span>
@@ -1094,7 +1104,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Creevykeel%20Court%20Tomb" target="_blank" rel="noopener" class="wiki-link">Creevykeel Court Tomb</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Creevykeel%20Court%20Tomb%20Irland" target="_blank" rel="noopener" class="wiki-link">Creevykeel Court Tomb</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1 h</span>
           <span class="pill">⏱ 20 Min</span>
@@ -1103,7 +1113,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Eines der besterhaltenen &#x27;Court Tombs&#x27; Irlands (~3500 v.Chr.). Halbkreis-förmiger Vorhof, 55m langer Cairn. Direkt an der N15, 25m Fußweg.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Achill%20Island" target="_blank" rel="noopener" class="wiki-link">Achill Island</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Achill%20Island%20Irland" target="_blank" rel="noopener" class="wiki-link">Achill Island</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1h 30m</span>
           <span class="pill">⏱ 30 Min</span>
@@ -1112,7 +1122,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Größte Insel Irlands, über Brücke erreichbar. Atlantic Drive an der Südküste (schmale Küstenstraße).</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Keem%20Beach" target="_blank" rel="noopener" class="wiki-link">Keem Beach</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Keem%20Beach%20Irland" target="_blank" rel="noopener" class="wiki-link">Keem Beach</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 30 Min</span>
           <span class="pill">⏱ 1h 30m</span>
@@ -1179,7 +1189,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Kylemore%20Abbey" target="_blank" rel="noopener" class="wiki-link">Kylemore Abbey</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Kylemore%20Abbey%20Irland" target="_blank" rel="noopener" class="wiki-link">Kylemore Abbey</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1h 5m</span>
           <span class="pill">⏱ 2 h</span>
@@ -1188,7 +1198,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Viktorianisches Schloss am Pollacappul Lake (1867). Heute Benediktinerinnen-Kloster. Walled Garden 2 km entfernt (Shuttle). Café für Lunch. Romantische Tragödie der Erbauer (Mitchell Henry baute es seiner sterbenden Frau).</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Connemara%20National%20Park" target="_blank" rel="noopener" class="wiki-link">Connemara National Park</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Connemara%20National%20Park%20Irland" target="_blank" rel="noopener" class="wiki-link">Connemara National Park</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 5 Min</span>
           <span class="pill">⏱ 1h 30m</span>
@@ -1270,7 +1280,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">45-Min-Überfahrt mit Aran Islands Ferries. Saisonale Frühfahrt ~10:30, Rückfahrt ~17:00. Innen oder Außendeck (windig).</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Inis%20M%C3%B3r%20%E2%80%94%20Kilronan%20%26%20Insel" target="_blank" rel="noopener" class="wiki-link">Inis Mór — Kilronan &amp; Insel</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Inis%20M%C3%B3r%20%E2%80%94%20Kilronan%20%26%20Insel%20Irland" target="_blank" rel="noopener" class="wiki-link">Inis Mór — Kilronan &amp; Insel</a></div>
         <div class="stop-meta">
           <span class="pill">⏱ 6 h</span>
           <span class="pill fee">€15 Rad</span>
@@ -1332,7 +1342,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Galway%20Latin%20Quarter" target="_blank" rel="noopener" class="wiki-link">Galway Latin Quarter</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Galway%20Latin%20Quarter%20Irland" target="_blank" rel="noopener" class="wiki-link">Galway Latin Quarter</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 30 Min</span>
           <span class="pill">⏱ 3 h</span>
@@ -1341,7 +1351,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Mittelalterliche Altstadt mit Kopfsteinpflaster und bunten Häusern. Quay Street und Shop Street mit Pubs, Buskerszene, Boutiquen. Lynch&#x27;s Castle (15. Jh.) im Banken-Gebäude.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Spanish%20Arch%20%26%20Galway%20Museum" target="_blank" rel="noopener" class="wiki-link">Spanish Arch &amp; Galway Museum</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Spanish%20Arch%20%26%20Galway%20Museum%20Irland" target="_blank" rel="noopener" class="wiki-link">Spanish Arch &amp; Galway Museum</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 5 Min</span>
           <span class="pill">⏱ 1 h</span>
@@ -1350,7 +1360,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Stadtmauer-Bogen von 1584 am Corrib-Fluss. Galway City Museum daneben (gratis): irische Maritimegeschichte, Claddagh-Tradition.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Salthill%20Promenade" target="_blank" rel="noopener" class="wiki-link">Salthill Promenade</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Salthill%20Promenade%20Irland" target="_blank" rel="noopener" class="wiki-link">Salthill Promenade</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 10 Min</span>
           <span class="pill">⏱ 2 h</span>
@@ -1404,7 +1414,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Dunguaire%20Castle" target="_blank" rel="noopener" class="wiki-link">Dunguaire Castle</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Dunguaire%20Castle%20Irland" target="_blank" rel="noopener" class="wiki-link">Dunguaire Castle</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 35 Min</span>
           <span class="pill">⏱ 20 Min</span>
@@ -1413,7 +1423,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Tower-House aus 1520 am Galway Bay. Sehr fotogen wegen der Lage direkt am Wasser. Innen oft geschlossen — Foto-Stopp reicht.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Poulnabrone%20Dolmen%20%28Burren%29" target="_blank" rel="noopener" class="wiki-link">Poulnabrone Dolmen (Burren)</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Poulnabrone%20Dolmen%20%28Burren%29%20Irland" target="_blank" rel="noopener" class="wiki-link">Poulnabrone Dolmen (Burren)</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 40 Min</span>
           <span class="pill">⏱ 30 Min</span>
@@ -1422,7 +1432,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Portalgrab aus 4200 v.Chr. mitten in der Karst-Landschaft des Burren. &#x27;Burren&#x27; bedeutet &#x27;felsiger Ort&#x27; — bizarre Kalksteinplatten erinnern an Mondlandschaft.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Cliffs%20of%20Moher" target="_blank" rel="noopener" class="wiki-link">Cliffs of Moher</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Cliffs%20of%20Moher%20Irland" target="_blank" rel="noopener" class="wiki-link">Cliffs of Moher</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 50 Min</span>
           <span class="pill">⏱ 2 h</span>
@@ -1490,7 +1500,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Dingle%20Stadt" target="_blank" rel="noopener" class="wiki-link">Dingle Stadt</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Dingle%20Stadt%20Irland" target="_blank" rel="noopener" class="wiki-link">Dingle Stadt</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1h 30m</span>
           <span class="pill">⏱ 1 h</span>
@@ -1498,7 +1508,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Bunte Hafenstadt am westlichsten Punkt der Halbinsel. Bekannt durch Delfin Fungie (verschwunden 2020). Murphy&#x27;s Ice Cream (Geheimtipp). Optional: Dingle Oceanworld Aquarium.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Slea%20Head%20Drive" target="_blank" rel="noopener" class="wiki-link">Slea Head Drive</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Slea%20Head%20Drive%20Irland" target="_blank" rel="noopener" class="wiki-link">Slea Head Drive</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 5 Min</span>
           <span class="pill">⏱ 3 h</span>
@@ -1507,7 +1517,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">50-km-Küstenschleife im Uhrzeigersinn. Schmale Straßen. Stopps: Dunbeg Fort (eisenzeitliches Klippenfort), Beehive Huts (bienenstockförmige Steinhütten, 1500 J. alt), Coumeenoole Beach.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Conor%20Pass%20%28optional%29" target="_blank" rel="noopener" class="wiki-link">Conor Pass (optional)</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Conor%20Pass%20%28optional%29%20Irland" target="_blank" rel="noopener" class="wiki-link">Conor Pass (optional)</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 30 Min</span>
           <span class="pill">⏱ 1 h</span>
@@ -1569,7 +1579,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Ross%20Castle" target="_blank" rel="noopener" class="wiki-link">Ross Castle</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Ross%20Castle%20Irland" target="_blank" rel="noopener" class="wiki-link">Ross Castle</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 10 Min</span>
           <span class="pill">⏱ 1 h</span>
@@ -1578,7 +1588,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Mittelalterlicher Tower-House (15. Jh.) am Lough Leane. Geführte Tower-Tour. Boots-Touren zu Innisfallen Island (€15).</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Ladies%27%20View%20/%20Molls%20Gap" target="_blank" rel="noopener" class="wiki-link">Ladies&#x27; View / Molls Gap</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Ladies%27%20View%20/%20Molls%20Gap%20Irland" target="_blank" rel="noopener" class="wiki-link">Ladies&#x27; View / Molls Gap</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 25 Min</span>
           <span class="pill">⏱ 30 Min</span>
@@ -1587,7 +1597,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Aussichtspunkte im Killarney National Park. &#x27;Ladies View&#x27; nach Queen Victoria&#x27;s Hofdamen benannt. Café mit Rooftop-Terrasse.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Sneem%20/%20Waterville%20/%20Cahersiveen" target="_blank" rel="noopener" class="wiki-link">Sneem / Waterville / Cahersiveen</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Sneem%20/%20Waterville%20/%20Cahersiveen%20Irland" target="_blank" rel="noopener" class="wiki-link">Sneem / Waterville / Cahersiveen</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1h 30m</span>
           <span class="pill">⏱ 3 h</span>
@@ -1655,7 +1665,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Kenmare" target="_blank" rel="noopener" class="wiki-link">Kenmare</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Kenmare%20Irland" target="_blank" rel="noopener" class="wiki-link">Kenmare</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 35 Min</span>
           <span class="pill">⏱ 30 Min</span>
@@ -1663,7 +1673,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Charmante kleine Stadt zwischen Kerry und Beara. Coffee Stop, bunte Hauptstraße. Star Wars: &#x27;Henry Street&#x27; Eis-Café.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Healy%20Pass%20%28R574%29" target="_blank" rel="noopener" class="wiki-link">Healy Pass (R574)</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Healy%20Pass%20%28R574%29%20Irland" target="_blank" rel="noopener" class="wiki-link">Healy Pass (R574)</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 40 Min</span>
           <span class="pill">⏱ 1 h</span>
@@ -1733,7 +1743,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Blarney%20Castle%20%26%20Gardens" target="_blank" rel="noopener" class="wiki-link">Blarney Castle &amp; Gardens</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Blarney%20Castle%20%26%20Gardens%20Irland" target="_blank" rel="noopener" class="wiki-link">Blarney Castle &amp; Gardens</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 20 Min</span>
           <span class="pill">⏱ 2 h</span>
@@ -1742,7 +1752,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Mittelalterliche Burg (15. Jh.) mit dem &#x27;Blarney Stone&#x27; — wer ihn küsst, soll die &#x27;Gabe der Beredsamkeit&#x27; bekommen. Stein erreichbar nur durch Rückwärts-Hängen über 27m Höhe (Aufpasser hält). Schöne Gärten.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Rock%20of%20Cashel" target="_blank" rel="noopener" class="wiki-link">Rock of Cashel</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Rock%20of%20Cashel%20Irland" target="_blank" rel="noopener" class="wiki-link">Rock of Cashel</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1h 50m</span>
           <span class="pill">⏱ 1h 30m</span>
@@ -1810,7 +1820,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Kilkenny%20Castle%20%26%20Stadt" target="_blank" rel="noopener" class="wiki-link">Kilkenny Castle &amp; Stadt</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Kilkenny%20Castle%20%26%20Stadt%20Irland" target="_blank" rel="noopener" class="wiki-link">Kilkenny Castle &amp; Stadt</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 50 Min</span>
           <span class="pill">⏱ 3 h</span>
@@ -1889,7 +1899,7 @@ p { margin-bottom: 8px; }
     <h3>Tagesablauf</h3>
     <div class="stops">
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Glendalough%20Monastic%20City" target="_blank" rel="noopener" class="wiki-link">Glendalough Monastic City</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Glendalough%20Monastic%20City%20Irland" target="_blank" rel="noopener" class="wiki-link">Glendalough Monastic City</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1 h</span>
           <span class="pill">⏱ 1h 30m</span>
@@ -1898,7 +1908,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Klostersiedlung gegründet 6. Jh. von St. Kevin im &#x27;Tal der zwei Seen&#x27;. Round Tower (30m, 11. Jh.), Cathedral, St. Kevin&#x27;s Kitchen (Kirche). Upper und Lower Lake.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Glendalough%20Lakes%20Walk" target="_blank" rel="noopener" class="wiki-link">Glendalough Lakes Walk</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Glendalough%20Lakes%20Walk%20Irland" target="_blank" rel="noopener" class="wiki-link">Glendalough Lakes Walk</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 5 Min</span>
           <span class="pill">⏱ 1h 30m</span>
@@ -1907,7 +1917,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">1,5h-Loop am Upper Lake, leicht und kinderwagentauglich. Wildtiere: Hirsche im Tal.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=Sally%20Gap%20/%20Wicklow%20Gap" target="_blank" rel="noopener" class="wiki-link">Sally Gap / Wicklow Gap</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=Sally%20Gap%20/%20Wicklow%20Gap%20Irland" target="_blank" rel="noopener" class="wiki-link">Sally Gap / Wicklow Gap</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 30 Min</span>
           <span class="pill">⏱ 2 h</span>
@@ -1986,7 +1996,7 @@ p { margin-bottom: 8px; }
         <div class="stop-desc">Check-out meist bis 11:00. Tank vorher voll machen.</div>
       </div>
       <div class="stop-card">
-        <div class="stop-name"><a href="https://de.wikipedia.org/wiki/Special:Search?go=Go&search=D%C3%BAn%20Laoghaire%20/%20Bray" target="_blank" rel="noopener" class="wiki-link">Optional: Dún Laoghaire / Bray</a></div>
+        <div class="stop-name"><a href="https://www.google.com/search?q=D%C3%BAn%20Laoghaire%20/%20Bray%20Irland" target="_blank" rel="noopener" class="wiki-link">Optional: Dún Laoghaire / Bray</a></div>
         <div class="stop-meta">
           <span class="pill">🚗 1h 10m</span>
           <span class="pill">⏱ 1 h</span>
