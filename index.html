@@ -10,6 +10,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Irland 2026">
   <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; }
@@ -45,6 +47,14 @@ p { margin-bottom: 8px; }
 
 /* Cover sections */
 .section { background: white; border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+
+/* Route map */
+#route-map { width: 100%; height: 480px; border-radius: 6px; margin-top: 8px; z-index: 0; }
+.map-section { padding: 14px; }
+.map-section h2 { margin-bottom: 4px; }
+.leaflet-popup-content { font-size: 13px; margin: 8px 12px; }
+.leaflet-popup-content a { color: #1a73e8; text-decoration: none; font-weight: 600; }
+.leaflet-popup-content .popup-day { font-size: 11px; color: #666; }
 .checklist-row {
   padding: 8px 0;
   border-bottom: 1px solid #eee;
@@ -238,6 +248,96 @@ p { margin-bottom: 8px; }
   <h2>Übersicht</h2>
   <p>Dublin (3 Nächte) → Belfast → Letterkenny (2) → Enniscrone → Westport → Galway (2) → Adare → Killarney (2) → Cork → Waterford → Arklow (2) → Dublin Airport</p>
 </section>
+<section class="section map-section">
+  <h2>Routenkarte</h2>
+  <p class="muted">Echte Karte (OpenStreetMap). Tippe einen Marker für den Tag. Pinch/Doppeltap zum Zoomen.</p>
+  <div id="route-map"></div>
+</section>
+
+<script>
+(function() {
+  const hotels = [{"name": "Croke Park Hotel", "lat": 53.3608, "lon": -6.2599, "day": "0", "tag": "T0"}, {"name": "Leonardo Belfast", "lat": 54.5944, "lon": -5.9286, "day": "3", "tag": "T3"}, {"name": "Clanree Letterkenny", "lat": 54.9498, "lon": -7.7339, "day": "4", "tag": "T4"}, {"name": "Diamond Coast", "lat": 54.2126, "lon": -9.093, "day": "6", "tag": "T6"}, {"name": "Glamping Westport", "lat": 53.799, "lon": -9.523, "day": "7", "tag": "T7"}, {"name": "Menlo Park Galway", "lat": 53.2772, "lon": -9.0468, "day": "8", "tag": "T8"}, {"name": "Adare Country House", "lat": 52.564, "lon": -8.79, "day": "10", "tag": "T10"}, {"name": "The Birches Killarney", "lat": 52.0596, "lon": -9.5089, "day": "11", "tag": "T11"}, {"name": "Clayton Cork", "lat": 51.8979, "lon": -8.4706, "day": "13", "tag": "T13"}, {"name": "Marina Waterford", "lat": 52.2585, "lon": -7.1066, "day": "14", "tag": "T14"}, {"name": "Arklow Bay", "lat": 52.796, "lon": -6.1565, "day": "15", "tag": "T15"}];
+  const stops = [{"name": "Dublin Airport", "lat": 53.4264, "lon": -6.2499, "day": "0"}, {"name": "Clonmacnoise", "lat": 53.3258, "lon": -7.9866, "day": "2"}, {"name": "Trim Castle", "lat": 53.555, "lon": -6.7906, "day": "2"}, {"name": "Monasterboice", "lat": 53.778, "lon": -6.449, "day": "3"}, {"name": "Carrick-a-Rede", "lat": 55.239, "lon": -6.3296, "day": "4"}, {"name": "Giant's Causeway", "lat": 55.2408, "lon": -6.5117, "day": "4"}, {"name": "Dunluce Castle", "lat": 55.211, "lon": -6.579, "day": "4"}, {"name": "Glenveagh NP", "lat": 55.047, "lon": -7.965, "day": "5"}, {"name": "Grianán of Aileach", "lat": 55.0237, "lon": -7.4275, "day": "6"}, {"name": "Slieve League", "lat": 54.6394, "lon": -8.624, "day": "6"}, {"name": "Creevykeel", "lat": 54.429, "lon": -8.4413, "day": "7"}, {"name": "Achill Island", "lat": 53.967, "lon": -10.0029, "day": "7"}, {"name": "Keem Beach", "lat": 53.967, "lon": -10.19, "day": "7"}, {"name": "Kylemore Abbey", "lat": 53.561, "lon": -9.888, "day": "8"}, {"name": "Connemara NP", "lat": 53.5474, "lon": -9.852, "day": "8"}, {"name": "Rossaveal (Aran)", "lat": 53.267, "lon": -9.564, "day": "9A"}, {"name": "Dunguaire Castle", "lat": 53.141, "lon": -8.922, "day": "10"}, {"name": "Burren NP", "lat": 52.9968, "lon": -9.0374, "day": "10"}, {"name": "Cliffs of Moher", "lat": 52.9719, "lon": -9.4263, "day": "10"}, {"name": "Slea Head", "lat": 52.11, "lon": -10.45, "day": "11"}, {"name": "Conor Pass", "lat": 52.1819, "lon": -10.2073, "day": "11"}, {"name": "Ross Castle", "lat": 52.0392, "lon": -9.5305, "day": "12"}, {"name": "Ladies View", "lat": 51.9672, "lon": -9.593, "day": "12"}, {"name": "Ring of Kerry", "lat": 51.8388, "lon": -9.9068, "day": "12"}, {"name": "Healy Pass", "lat": 51.7213, "lon": -9.7565, "day": "13"}, {"name": "Blarney Castle", "lat": 51.9325, "lon": -8.5707, "day": "14"}, {"name": "Rock of Cashel", "lat": 52.5202, "lon": -7.8907, "day": "14"}, {"name": "Kilkenny", "lat": 52.6516, "lon": -7.251, "day": "15"}, {"name": "Glendalough", "lat": 53.0107, "lon": -6.3268, "day": "16"}, {"name": "Wicklow Mtns", "lat": 53.143, "lon": -6.3109, "day": "16"}];
+  const route = [{"lat": 53.3608, "lon": -6.2599}, {"lat": 54.5944, "lon": -5.9286}, {"lat": 54.9498, "lon": -7.7339}, {"lat": 54.2126, "lon": -9.093}, {"lat": 53.799, "lon": -9.523}, {"lat": 53.2772, "lon": -9.0468}, {"lat": 52.564, "lon": -8.79}, {"lat": 52.0596, "lon": -9.5089}, {"lat": 51.8979, "lon": -8.4706}, {"lat": 52.2585, "lon": -7.1066}, {"lat": 52.796, "lon": -6.1565}, {"lat": 53.3608, "lon": -6.2599}];
+
+  // Init map
+  const map = L.map('route-map', {
+    zoomControl: true,
+    scrollWheelZoom: false  // avoid scroll hijacking on desktop
+  });
+
+  // Use a clean tile layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 19
+  }).addTo(map);
+
+  // Custom icon for hotels (green pin with day number)
+  function hotelIcon(tagLabel) {
+    return L.divIcon({
+      className: 'hotel-marker',
+      html: `<div style="
+        background:#1a4d2e;color:white;border:2px solid white;
+        border-radius:50%;width:34px;height:34px;
+        display:flex;align-items:center;justify-content:center;
+        font-weight:700;font-size:11px;
+        box-shadow:0 2px 4px rgba(0,0,0,0.4);
+        font-family:-apple-system,sans-serif;
+      ">${tagLabel}</div>`,
+      iconSize: [34, 34],
+      iconAnchor: [17, 17],
+      popupAnchor: [0, -16]
+    });
+  }
+
+  // Custom icon for stops (orange diamond)
+  const stopIcon = L.divIcon({
+    className: 'stop-marker',
+    html: `<div style="
+      width:14px;height:14px;
+      background:#e67e22;
+      border:2px solid white;
+      transform:rotate(45deg);
+      box-shadow:0 1px 3px rgba(0,0,0,0.4);
+    "></div>`,
+    iconSize: [14, 14],
+    iconAnchor: [7, 7],
+    popupAnchor: [0, -10]
+  });
+
+  // Add route polyline
+  const routeLatLngs = route.map(p => [p.lat, p.lon]);
+  L.polyline(routeLatLngs, {
+    color: '#1a73e8',
+    weight: 4,
+    opacity: 0.75,
+    lineJoin: 'round'
+  }).addTo(map);
+
+  // Add hotel markers
+  hotels.forEach(h => {
+    const m = L.marker([h.lat, h.lon], { icon: hotelIcon(h.tag) }).addTo(map);
+    m.bindPopup(`<b>${h.name}</b><br><span class="popup-day">Tag ${h.day} (Ankunft)</span><br><a href="#day-${h.day}">→ Zum Tag ${h.day}</a>`);
+  });
+
+  // Add stop markers
+  stops.forEach(s => {
+    const m = L.marker([s.lat, s.lon], { icon: stopIcon }).addTo(map);
+    m.bindPopup(`<b>${s.name}</b><br><span class="popup-day">Tag ${s.day}</span><br><a href="#day-${s.day}">→ Zum Tag ${s.day}</a>`);
+  });
+
+  // Fit map to all points
+  const allPoints = [
+    ...hotels.map(h => [h.lat, h.lon]),
+    ...stops.map(s => [s.lat, s.lon])
+  ];
+  map.fitBounds(allPoints, { padding: [20, 20] });
+
+  // Enable scroll-zoom only after user interacts (better mobile UX)
+  map.once('click', function() { map.scrollWheelZoom.enable(); });
+})();
+</script>
+
 <section class="section">
   <h2>Last-Minute-Checkliste (Stand 24.5.)</h2>
   <div class="checklist-row">
